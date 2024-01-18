@@ -19,6 +19,10 @@ public class Constants {
         public static final TalonSRXConfiguration rightTalonConfig = new TalonSRXConfiguration();
 
         // TODO fill in
-        public static final double maxSpeed = 0.2; // in percent output
+        public static final double climbSpeed = 0.2; // in percent output
+        public static final double maxSpeed = 0.4; // in percent output
+
+        public static final double balanceAdjustQuotient = 0.5; // TODO
+
     }
 }
