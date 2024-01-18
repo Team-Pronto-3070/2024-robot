@@ -10,7 +10,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ProxyCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -35,7 +35,7 @@ public class SwerveSubsystem extends SubsystemBase {
   private double gyroOffset = 0.0;
 
   public final SwerveDriveKinematics2 kinematics;
-  private final SwerveDrivePoseEstimator poseEstimator;
+  // private final SwerveDrivePoseEstimator poseEstimator;
 
   private final Field2d field;
 
@@ -90,18 +90,18 @@ public class SwerveSubsystem extends SubsystemBase {
         )
       );
 
-    poseEstimator =
-      new SwerveDrivePoseEstimator(
-        kinematics,
-        getYaw(),
-        new SwerveModulePosition[] {
-          frontLeft.getPosition(),
-          frontRight.getPosition(),
-          rearLeft.getPosition(),
-          rearRight.getPosition(),
-        },
-        new Pose2d()
-      );
+    // poseEstimator =
+    //   new SwerveDrivePoseEstimator(
+    //     kinematics,
+    //     getYaw(),
+    //     new SwerveModulePosition[] {
+    //       frontLeft.getPosition(),
+    //       frontRight.getPosition(),
+    //       rearLeft.getPosition(),
+    //       rearRight.getPosition(),
+    //     },
+    //     new Pose2d()
+    //   );
 
     field = new Field2d();
     SmartDashboard.putData("field", field);
@@ -121,9 +121,9 @@ public class SwerveSubsystem extends SubsystemBase {
     gyro.reset();
   }
 
-  public Pose2d getPose() {
-    return poseEstimator.getEstimatedPosition();
-  }
+  //   public Pose2d getPose() {
+  //     return poseEstimator.getEstimatedPosition();
+  //   }
 
   public ChassisSpeeds getChassisSpeeds() {
     return kinematics.toChassisSpeeds(
@@ -134,20 +134,20 @@ public class SwerveSubsystem extends SubsystemBase {
     );
   }
 
-  public void resetOdometry(Pose2d pose) {
-    gyro.setGyroAngle(gyro.getYawAxis(), pose.getRotation().getDegrees());
-    poseEstimator.resetPosition(
-      getYaw(),
-      new SwerveModulePosition[] {
-        frontLeft.getPosition(),
-        frontRight.getPosition(),
-        rearLeft.getPosition(),
-        rearRight.getPosition(),
-      },
-      pose
-    );
-    //gyroOffset = gyro.getAngle() - pose.getRotation().getDegrees();
-  }
+  //   public void resetOdometry(Pose2d pose) {
+  //     gyro.setGyroAngle(gyro.getYawAxis(), pose.getRotation().getDegrees());
+  //     poseEstimator.resetPosition(
+  //       getYaw(),
+  //       new SwerveModulePosition[] {
+  //         frontLeft.getPosition(),
+  //         frontRight.getPosition(),
+  //         rearLeft.getPosition(),
+  //         rearRight.getPosition(),
+  //       },
+  //       pose
+  //     );
+  //     //gyroOffset = gyro.getAngle() - pose.getRotation().getDegrees();
+  //   }
 
   public void stop() {
     drive(0, 0, 0, false, false);
@@ -214,7 +214,7 @@ public class SwerveSubsystem extends SubsystemBase {
     }
     */
 
-  public CommandBase turnToAngle(
+  public Command turnToAngle(
     Rotation2d angle,
     DoubleSupplier x,
     DoubleSupplier y
@@ -238,7 +238,7 @@ public class SwerveSubsystem extends SubsystemBase {
       .andThen(thetaController::close);
   }
 
-  public CommandBase turnToNearestCardinalDirection(
+  public Command turnToNearestCardinalDirection(
     DoubleSupplier x,
     DoubleSupplier y
   ) {
@@ -269,17 +269,17 @@ public class SwerveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    poseEstimator.update(
-      getYaw(),
-      new SwerveModulePosition[] {
-        frontLeft.getPosition(),
-        frontRight.getPosition(),
-        rearLeft.getPosition(),
-        rearRight.getPosition(),
-      }
-    );
+    // poseEstimator.update(
+    //   getYaw(),
+    //   new SwerveModulePosition[] {
+    //     frontLeft.getPosition(),
+    //     frontRight.getPosition(),
+    //     rearLeft.getPosition(),
+    //     rearRight.getPosition(),
+    //   }
+    // );
 
-    field.setRobotPose(getPose());
+    // field.setRobotPose(getPose());
 
     SmartDashboard.putNumber(
       "front left speed",
