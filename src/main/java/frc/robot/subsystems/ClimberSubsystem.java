@@ -35,23 +35,23 @@ public class ClimberSubsystem extends SubsystemBase {
 
     /**
      * 
-     * @param speed in percent output
+     * @param speed in percent of *maximum* speed
      */
     public void setLeftSpeed(double speed) {
-        this.leftTalon.set(speed);
+        this.leftTalon.set(speed * Constants.ClimberSubsystem.maxSpeed);
     }
 
     /**
      * 
-     * @param speed in percent output
+     * @param speed in percent of *maximum* speed 
      */
     public void setRightSpeed(double speed) {
-        this.rightTalon.set(speed);
+        this.rightTalon.set(speed * Constants.ClimberSubsystem.maxSpeed);
     }
 
     /**
      * 
-     * @param speed in percent output
+     * @param speed in percent of *maximum* speed
      */
     public void setBothSpeed(double speed) {
         this.setLeftSpeed(speed);
