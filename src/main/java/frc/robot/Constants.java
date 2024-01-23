@@ -1,5 +1,6 @@
 package frc.robot;
 
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -96,7 +97,7 @@ public final class Constants {
       public static final double closedLoopRamp = 0.0;
 
       public static final InvertedValue motorInvert =
-        InvertedValue.Clockwise_Positive; //TODO: Is clockwise or counter clockwise correct?
+        InvertedValue.Clockwise_Positive; // TODO: Is clockwise or counter clockwise correct?
 
       public static final NeutralModeValue neutralMode = NeutralModeValue.Brake;
     }
@@ -137,5 +138,35 @@ public final class Constants {
     public static final double triggerDeadband = 0.5;
 
     public static final double slowSpeed = 0.5;
+  }
+
+  public static final class Shooter {
+
+    public static final class Left {
+
+      public static final int motorID = 1;
+    }
+
+    public static final class Right {
+
+      public static final int motorID = 2;
+    }
+
+    public static final class Motor {
+
+      public static final IdleMode idleMode = IdleMode.kCoast;
+      public static final int currentLimit = 20;
+      public static final double speed = 60.0; // Motor speed in RPM
+
+      public static final class PID {
+
+        public static final double P = 1.0;
+        public static final double I = 0.0;
+        public static final double D = 0.0;
+        public static final double F = 0.0;
+        public static final double minOutput = -1;
+        public static final double maxOutput = 1;
+      }
+    }
   }
 }
