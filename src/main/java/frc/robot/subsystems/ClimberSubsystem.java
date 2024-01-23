@@ -69,11 +69,11 @@ public class ClimberSubsystem extends SubsystemBase {
         return this.run(() -> {
             double sinRoll = Math.sin(roll.getAsDouble());
             this.setLeftSpeed(
-                (1.0 - sinRoll)                                     // * get the difference of height
+                (1.0 + sinRoll)                                     // * get the difference of height
                 * Constants.ClimberSubsystem.balanceAdjustQuotient  // * how much to adjust
                 * Constants.ClimberSubsystem.climbSpeed);           // * multiply get the actual motor speed
             this.setRightSpeed(
-                (1.0 + sinRoll)
+                (1.0 - sinRoll)
                 * Constants.ClimberSubsystem.balanceAdjustQuotient
                 * Constants.ClimberSubsystem.climbSpeed);
         }).until(() -> (!enable.getAsBoolean()) && limitSwitch.getAsBoolean());
