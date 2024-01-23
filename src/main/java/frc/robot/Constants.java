@@ -138,4 +138,23 @@ public final class Constants {
 
     public static final double slowSpeed = 0.5;
   }
+
+  public static final class Autos {
+    public static final class Swerve {
+      // TODO fill pid values
+      public static final double translation_P = 0.0;
+      public static final double translation_I = 0.0;
+      public static final double translation_D = 0.0;
+
+      // TODO fill pid values
+      public static final double rotation_P = 0.0;
+      public static final double rotation_I = 0.0;
+      public static final double rotation_D = 0.0;
+
+
+      // TODO fill out
+      public static final double maxSpeed = 0.0; // in meters per second
+      public static final double driveBaseRadius = 0.0; // in meters
+    }
+  }
 }

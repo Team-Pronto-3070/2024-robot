@@ -8,6 +8,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,6 +22,11 @@ import frc.robot.util.SwerveModule;
 import frc.robot.util.SwerveModuleState2;
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.ReplanningConfig;
 
 //import org.photonvision.EstimatedRobotPose;
 
@@ -105,6 +111,37 @@ public class SwerveSubsystem extends SubsystemBase {
 
     field = new Field2d();
     SmartDashboard.putData("field", field);
+
+
+    // * autos:
+
+    //  
+    AutoBuilder.configureHolonomic(
+      this::getPose,
+      this::resetPose,
+      this::getCurrentSpeeds,
+      this::driveRobotRelative,
+      new HolonomicPathFollowerConfig(
+        new PIDConstants(
+          Constants.Autos.Swerve.translation_P,
+          Constants.Autos.Swerve.translation_I,
+          Constants.Autos.Swerve.translation_D),
+        new PIDConstants(
+          Constants.Autos.Swerve.rotation_P,
+          Constants.Autos.Swerve.rotation_I,
+          Constants.Autos.Swerve.rotation_D),
+        Constants.Autos.Swerve.maxSpeed,
+        Constants.Autos.Swerve.driveBaseRadius,
+        new ReplanningConfig()),
+      () -> {
+        var alliance = DriverStation.getAlliance();
+        if (alliance.isPresent()) {
+          return alliance.get() == DriverStation.Alliance.Red;
+        }
+        return false;
+      },
+      this
+    );
   }
 
   public Rotation2d getYaw() {
@@ -322,4 +359,23 @@ public class SwerveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("manual pitch", gyro.getAngle());
     SmartDashboard.putNumber("manual roll", gyro.getAngle());
   }
+
+  private Pose2d getPose() {
+    // TODO
+    return null;
+  }
+
+  private void resetPose(Pose2d pose) {
+    // TODO
+  }
+
+  private ChassisSpeeds getCurrentSpeeds() {
+    // TODO
+    return null;
+  }
+
+  private void driveRobotRelative(ChassisSpeeds chassisspeeds) {
+    // TODO
+  }
+
 }
