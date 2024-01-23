@@ -1,10 +1,6 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.units.Distance;
-import edu.wpi.first.units.Measure;
-import edu.wpi.first.units.Velocity;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -13,7 +9,6 @@ import java.util.function.DoubleSupplier;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.fasterxml.jackson.databind.ser.std.BooleanSerializer;
 
 /*
  * The Climber Subsystem
