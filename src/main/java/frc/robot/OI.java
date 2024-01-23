@@ -18,6 +18,7 @@ public class OI {
   public final DoubleSupplier processed_drive_y;
   public final DoubleSupplier processed_drive_rot;
   public final BooleanSupplier driveSlow;
+  public final Trigger launchButton;
 
   public final Trigger gyroResetButton;
 
@@ -29,6 +30,8 @@ public class OI {
     drive_rot = () -> -driver.getRightX();
     // driveSlow = driver.rightTrigger();
     driveSlow = () -> true;
+
+    launchButton = driver.x();
 
     // processed_drive_x = () ->
     // Math.pow(MathUtil.applyDeadband(drive_x.getAsDouble(), Constants.OI.deadband,

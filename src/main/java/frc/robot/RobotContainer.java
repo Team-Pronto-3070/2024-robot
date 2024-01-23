@@ -9,12 +9,14 @@ import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class RobotContainer {
 
   private final OI oi = new OI(Constants.OI.driverPort);
   private final SwerveSubsystem swerve = new SwerveSubsystem();
+  private final ShooterSubsystem shooter = new ShooterSubsystem();
 
   public RobotContainer() {
     DataLogManager.start();
@@ -31,6 +33,8 @@ public class RobotContainer {
         true)));
 
     oi.gyroResetButton.onTrue(swerve.runOnce(swerve::resetGyro));
+
+    oi.launchButton.onTrue(shooter.runOnce(shooter::launchNote));
 
     configureBindings();
   }
