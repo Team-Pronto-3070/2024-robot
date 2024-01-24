@@ -6,13 +6,21 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.subsystems.IntakeSubsystem;
+
 
 public class RobotContainer {
+  private final OI oi = new OI(Constants.OI.driverPort);
+  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   public RobotContainer() {
     configureBindings();
+    intakeSubsystem.setDefaultCommand(intakeSubsystem.motorStop());
+    
   }
 
-  private void configureBindings() {}
+  private void configureBindings() {
+    oi.buttonStatus.whileTrue(intakeSubsystem.run().until(()-> oi.buttonStatus.getAsBoolean() == false));
+  }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
