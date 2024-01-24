@@ -30,8 +30,7 @@ public class ShooterModule {
     shooterPID.setReference(
       speed,
       CANSparkMax.ControlType.kVelocity,
-      0,
-      Constants.Swerve.Turn.KV // TODO: what should this be?
+      0
     );
   }
 }

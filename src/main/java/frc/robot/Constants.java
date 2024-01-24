@@ -156,7 +156,8 @@ public final class Constants {
 
       public static final IdleMode idleMode = IdleMode.kCoast;
       public static final int currentLimit = 20;
-      public static final double speed = 60.0; // Motor speed in RPM
+      public static final double ampSpeed = 30.0; // Motor speed in RPM
+      public static final double speakerSpeed = 60.0; // Motor speed in RPM
 
       public static final class PID {
 

@@ -34,7 +34,8 @@ public class RobotContainer {
 
     oi.gyroResetButton.onTrue(swerve.runOnce(swerve::resetGyro));
 
-    oi.launchButton.onTrue(shooter.runOnce(shooter::launchNote));
+    oi.speakerLaunchButton.onTrue(shooter.runOnce(shooter::launchSpeakerNote));
+    oi.ampLaunchButton.onTrue(shooter.runOnce(shooter::launchAmpNote));
 
     configureBindings();
   }

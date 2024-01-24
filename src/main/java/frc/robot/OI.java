@@ -18,7 +18,8 @@ public class OI {
   public final DoubleSupplier processed_drive_y;
   public final DoubleSupplier processed_drive_rot;
   public final BooleanSupplier driveSlow;
-  public final Trigger launchButton;
+  public final Trigger speakerLaunchButton;
+  public final Trigger ampLaunchButton;
 
   public final Trigger gyroResetButton;
 
@@ -31,7 +32,9 @@ public class OI {
     // driveSlow = driver.rightTrigger();
     driveSlow = () -> true;
 
-    launchButton = driver.x();
+    speakerLaunchButton = driver.rightBumper();
+    ampLaunchButton = driver.rightTrigger();
+    
 
     // processed_drive_x = () ->
     // Math.pow(MathUtil.applyDeadband(drive_x.getAsDouble(), Constants.OI.deadband,

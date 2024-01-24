@@ -15,8 +15,13 @@ public class ShooterSubsystem extends SubsystemBase {
     MotorRight = new ShooterModule(Constants.Shooter.Right.motorID);
   }
 
-  public void launchNote() {
-    MotorLeft.setRPM(Constants.Shooter.Motor.speed);
-    MotorRight.setRPM(Constants.Shooter.Motor.speed * -1);
+  public void launchSpeakerNote() {
+    MotorLeft.setRPM(Constants.Shooter.Motor.speakerSpeed);
+    MotorRight.setRPM(Constants.Shooter.Motor.speakerSpeed * -1);
+  }
+
+  public void launchAmpNote() {
+    MotorLeft.setRPM(Constants.Shooter.Motor.ampSpeed);
+    MotorRight.setRPM(Constants.Shooter.Motor.ampSpeed * -1);
   }
 }
