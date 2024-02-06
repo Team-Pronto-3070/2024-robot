@@ -23,7 +23,7 @@ public final class Constants {
     // This changes the drive speed of the module (a pinion gear with more teeth
     // will result in a
     // robot that drives faster).
-    private static final int drivingMotorPinionTeeth = 13;
+    private static final int drivingMotorPinionTeeth = 14;
     public static final double gearRatio =
       (45.0 * 22) / (drivingMotorPinionTeeth * 15);
 
