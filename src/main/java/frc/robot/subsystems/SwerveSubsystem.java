@@ -1,11 +1,13 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.controller.PIDController;
-// import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.geometry.Pose2d;
 // import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 // import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -34,7 +36,7 @@ public class SwerveSubsystem extends SubsystemBase {
   private double gyroOffset = 0.0;
 
   public final SwerveDriveKinematics2 kinematics;
-  // private final SwerveDrivePoseEstimator poseEstimator;
+  private final SwerveDrivePoseEstimator poseEstimator;
 
   private final Field2d field;
 
@@ -89,18 +91,18 @@ public class SwerveSubsystem extends SubsystemBase {
         )
       );
 
-    // poseEstimator =
-    //   new SwerveDrivePoseEstimator(
-    //     kinematics,
-    //     getYaw(),
-    //     new SwerveModulePosition[] {
-    //       frontLeft.getPosition(),
-    //       frontRight.getPosition(),
-    //       rearLeft.getPosition(),
-    //       rearRight.getPosition(),
-    //     },
-    //     new Pose2d()
-    //   );
+    poseEstimator =
+      new SwerveDrivePoseEstimator(
+        kinematics,
+        getYaw(),
+        new SwerveModulePosition[] {
+          frontLeft.getPosition(),
+          frontRight.getPosition(),
+          rearLeft.getPosition(),
+          rearRight.getPosition(),
+        },
+        new Pose2d()
+      );
 
     field = new Field2d();
     SmartDashboard.putData("field", field);
@@ -120,9 +122,9 @@ public class SwerveSubsystem extends SubsystemBase {
     gyro.reset();
   }
 
-  //   public Pose2d getPose() {
-  //     return poseEstimator.getEstimatedPosition();
-  //   }
+  public Pose2d getPose() {
+    return poseEstimator.getEstimatedPosition();
+  }
 
   public ChassisSpeeds getChassisSpeeds() {
     return kinematics.toChassisSpeeds(
@@ -133,20 +135,20 @@ public class SwerveSubsystem extends SubsystemBase {
     );
   }
 
-  //   public void resetOdometry(Pose2d pose) {
-  //     gyro.setGyroAngle(gyro.getYawAxis(), pose.getRotation().getDegrees());
-  //     poseEstimator.resetPosition(
-  //       getYaw(),
-  //       new SwerveModulePosition[] {
-  //         frontLeft.getPosition(),
-  //         frontRight.getPosition(),
-  //         rearLeft.getPosition(),
-  //         rearRight.getPosition(),
-  //       },
-  //       pose
-  //     );
-  //     //gyroOffset = gyro.getAngle() - pose.getRotation().getDegrees();
-  //   }
+  public void resetOdometry(Pose2d pose) {
+    gyro.setGyroAngle(gyro.getYawAxis(), pose.getRotation().getDegrees());
+    poseEstimator.resetPosition(
+      getYaw(),
+      new SwerveModulePosition[] {
+        frontLeft.getPosition(),
+        frontRight.getPosition(),
+        rearLeft.getPosition(),
+        rearRight.getPosition(),
+      },
+      pose
+    );
+    //gyroOffset = gyro.getAngle() - pose.getRotation().getDegrees();
+  }
 
   public void stop() {
     drive(0, 0, 0, false, false);
@@ -213,72 +215,19 @@ public class SwerveSubsystem extends SubsystemBase {
     }
     */
 
-  public Command turnToAngle(
-    Rotation2d angle,
-    DoubleSupplier x,
-    DoubleSupplier y
-  ) {
-    PIDController thetaController = new PIDController(0.3, 0.1, 0);
-    thetaController.reset();
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
-    thetaController.setTolerance(Units.degreesToRadians(2));
-    thetaController.setSetpoint(angle.getRadians());
-    return this.run(() ->
-        this.drive(
-            x.getAsDouble(),
-            y.getAsDouble(),
-            thetaController.calculate(this.getYaw().getRadians()) *
-            Constants.Swerve.maxAngularSpeed,
-            true,
-            false
-          )
-      )
-      .until(() -> thetaController.atSetpoint())
-      .andThen(thetaController::close);
-  }
-
-  public Command turnToNearestCardinalDirection(
-    DoubleSupplier x,
-    DoubleSupplier y
-  ) {
-    return new ProxyCommand(() -> {
-      double angle = this.getYaw().getDegrees() % 360.0;
-      if (angle < 0) angle += 360.0;
-      if (90 <= angle && angle < 270) {
-        return turnToAngle(Rotation2d.fromDegrees(180), x, y);
-      } else {
-        return turnToAngle(Rotation2d.fromDegrees(0), x, y);
-      }
-      /*
-            if (45 <= angle && angle < 135) {
-                return turnToAngle(Rotation2d.fromDegrees(90), x, y);
-            } else if (135 <= angle && angle < 225) {
-                return turnToAngle(Rotation2d.fromDegrees(180), x, y);
-            } else if (225 <= angle && angle < 315) {
-                return turnToAngle(Rotation2d.fromDegrees(270), x, y);
-            } else if ((315 <= angle && angle < 360) || (0 <= angle && angle < 45)) {
-                return turnToAngle(Rotation2d.fromDegrees(0), x, y);
-            } else {
-                //return Commands.print(((Double) angle).toString());
-                return Commands.none();
-            }
-            */
-    });
-  }
-
   @Override
   public void periodic() {
-    // poseEstimator.update(
-    //   getYaw(),
-    //   new SwerveModulePosition[] {
-    //     frontLeft.getPosition(),
-    //     frontRight.getPosition(),
-    //     rearLeft.getPosition(),
-    //     rearRight.getPosition(),
-    //   }
-    // );
+    poseEstimator.update(
+      getYaw(),
+      new SwerveModulePosition[] {
+        frontLeft.getPosition(),
+        frontRight.getPosition(),
+        rearLeft.getPosition(),
+        rearRight.getPosition(),
+      }
+    );
 
-    // field.setRobotPose(getPose());
+    field.setRobotPose(getPose());
 
     SmartDashboard.putNumber(
       "front left speed",
@@ -316,7 +265,6 @@ public class SwerveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("pitch", getPitch());
     SmartDashboard.putNumber("yaw", getYaw().getDegrees());
     SmartDashboard.putNumber("mod yaw", getYaw().getDegrees() % 360.0);
-
     SmartDashboard.putNumber("manual yaw", gyro.getAngle());
     SmartDashboard.putNumber("manual pitch", gyro.getAngle());
     SmartDashboard.putNumber("manual roll", gyro.getAngle());
