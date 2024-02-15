@@ -23,7 +23,7 @@ public class OI {
 
   public final Trigger gyroResetButton;
 
-  public final Trigger buttonStatus;
+  public final Trigger smartIntakeButton;
 
   public OI(int driverPort) {
     driver = new CommandXboxController(driverPort);
@@ -76,6 +76,6 @@ public class OI {
 
     gyroResetButton = driver.povRight();
 
-    buttonStatus = driver.x();
+    smartIntakeButton = driver.leftBumper();
   }
 }

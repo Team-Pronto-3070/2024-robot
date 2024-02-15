@@ -18,7 +18,7 @@ public class RobotContainer {
   private final OI oi = new OI(Constants.OI.driverPort);
   private final SwerveSubsystem swerve = new SwerveSubsystem();
   private final ShooterSubsystem shooter = new ShooterSubsystem();
-  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  private final IntakeSubsystem intake = new IntakeSubsystem();
 
   public RobotContainer() {
     DataLogManager.start();
@@ -33,20 +33,16 @@ public class RobotContainer {
             * Constants.Swerve.maxAngularSpeed * (oi.driveSlow.getAsBoolean() ? 0.15 : 1),
         true,
         true)));
+    intake.setDefaultCommand(intake.run(intake::stop));
 
     oi.gyroResetButton.onTrue(swerve.runOnce(swerve::resetGyro));
 
     oi.speakerLaunchButton.onTrue(shooter.runOnce(shooter::launchSpeakerNote));
     oi.ampLaunchButton.onTrue(shooter.runOnce(shooter::launchAmpNote));
 
-    configureBindings();
-    intakeSubsystem.setDefaultCommand(intakeSubsystem.motorStop());
-    
+    oi.smartIntakeButton.onTrue(intake.smartIntake());
   }
 
-  private void configureBindings() {
-    oi.buttonStatus.whileTrue(intakeSubsystem.run().until(()-> oi.buttonStatus.getAsBoolean() == false));
-  }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
