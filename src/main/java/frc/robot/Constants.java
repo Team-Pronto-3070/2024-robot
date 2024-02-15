@@ -1,15 +1,13 @@
 package frc.robot;
-    
-import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 
+import com.revrobotics.CANSparkBase.IdleMode;
 
 public class Constants {
     public static final class ClimberSubsystem {
         public static final int leftTalonID = 0; // TODO
         public static final int rightTalonID = 0; // TODO
 
-        public static final TalonSRXConfiguration leftTalonConfig  = new TalonSRXConfiguration();
-        public static final TalonSRXConfiguration rightTalonConfig = new TalonSRXConfiguration();
+        public static final IdleMode idleMode = IdleMode.kBrake;
 
         // TODO fill in
         public static final double climbSpeed = 0.2; // in percent output
