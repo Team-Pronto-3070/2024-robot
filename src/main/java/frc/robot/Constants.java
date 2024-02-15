@@ -2,6 +2,7 @@ package frc.robot;
 
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.pathplanner.lib.util.PIDConstants;
 import com.revrobotics.SparkLimitSwitch;
 import com.revrobotics.CANSparkBase.IdleMode;
 import edu.wpi.first.math.util.Units;
@@ -160,13 +161,8 @@ public final class Constants {
 
   }
   public static final class Autos {
-    public static final double translation_P = 1.0;
-    public static final double translation_I = 0.0;
-    public static final double translation_D = 0.0;
-
-    public static final double rotation_P = 1.0;
-    public static final double rotation_I = 0.0;
-    public static final double rotation_D = 0.0;
+    public static final PIDConstants translationPID = new PIDConstants(1, 0, 0);
+    public static final PIDConstants rotationPID = new PIDConstants(1, 0, 0);
 
     // TODO fill out
     public static final double maxSpeed = 0.0; // in meters per second
