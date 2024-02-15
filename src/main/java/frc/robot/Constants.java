@@ -3,13 +3,13 @@ package frc.robot;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.pathplanner.lib.util.PIDConstants;
-import com.revrobotics.SparkLimitSwitch;
 import com.revrobotics.CANSparkBase.IdleMode;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
 
   public static final class Swerve {
+    public static final IdleMode idleMode = IdleMode.kBrake;
 
     public static final double wheelBase = Units.inchesToMeters(18.0 - 3.5); // distance between front and back // wheels
     public static final double trackWidth = Units.inchesToMeters(18.0 - 3.5); // distance between left and right // wheels
