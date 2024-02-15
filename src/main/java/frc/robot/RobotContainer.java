@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,15 +24,15 @@ public class RobotContainer {
     DriverStation.startDataLog(DataLogManager.getLog());
 
     swerve.setDefaultCommand(swerve.run(() -> swerve.drive(
-        Math.pow(MathUtil.applyDeadband(oi.drive_x.getAsDouble(), Constants.OI.deadband), 3) * Constants.Swerve.maxSpeed
-            * (oi.driveSlow.getAsBoolean() ? Constants.OI.slowSpeed : 1),
-        Math.pow(MathUtil.applyDeadband(oi.drive_y.getAsDouble(), Constants.OI.deadband), 3) * Constants.Swerve.maxSpeed
-            * (oi.driveSlow.getAsBoolean() ? Constants.OI.slowSpeed : 1),
-        Math.pow(MathUtil.applyDeadband(oi.drive_rot.getAsDouble(), Constants.OI.deadband), 3)
-            * Constants.Swerve.maxAngularSpeed * (oi.driveSlow.getAsBoolean() ? 0.15 : 1),
+        oi.processed_drive_x.getAsDouble(),
+        oi.processed_drive_y.getAsDouble(),
+        oi.processed_drive_rot.getAsDouble(),
         true,
         true)));
     intake.setDefaultCommand(intake.run(intake::stop));
+
+    oi.interruptButton.onTrue(swerve.runOnce(swerve::stop))
+                      .onTrue(intake.runOnce(intake::stop));
 
     oi.gyroResetButton.onTrue(swerve.runOnce(swerve::resetGyro));
 
@@ -42,7 +41,6 @@ public class RobotContainer {
 
     oi.smartIntakeButton.onTrue(intake.smartIntake());
   }
-
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
