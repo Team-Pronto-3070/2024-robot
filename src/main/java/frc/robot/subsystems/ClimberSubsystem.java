@@ -22,13 +22,11 @@ public class ClimberSubsystem extends SubsystemBase {
     private final WPI_TalonSRX rightTalon;
 
     public ClimberSubsystem() {
-        leftTalon  = new WPI_TalonSRX(Constants.ClimberSubsystem.leftTalonID);
-        rightTalon = new WPI_TalonSRX(Constants.ClimberSubsystem.rightTalonID);
+        leftTalon  = new WPI_TalonSRX(Constants.Climber.leftTalonID);
+        rightTalon = new WPI_TalonSRX(Constants.Climber.rightTalonID);
 
         leftTalon .configFactoryDefault();
         rightTalon.configFactoryDefault();
-        leftTalon .configAllSettings(Constants.ClimberSubsystem.leftTalonConfig);
-        rightTalon.configAllSettings(Constants.ClimberSubsystem.leftTalonConfig);
         leftTalon .setNeutralMode(NeutralMode.Brake);
         rightTalon.setNeutralMode(NeutralMode.Brake);
     }
@@ -38,7 +36,7 @@ public class ClimberSubsystem extends SubsystemBase {
      * @param speed in percent of *climb* speed
      */
     public void setLeftSpeed(double speed) {
-        this.leftTalon.set(speed * Constants.ClimberSubsystem.maxSpeed);
+        this.leftTalon.set(speed * Constants.Climber.maxSpeed);
     }
 
     /**
@@ -46,7 +44,7 @@ public class ClimberSubsystem extends SubsystemBase {
      * @param speed in percent of *climb* speed 
      */
     public void setRightSpeed(double speed) {
-        this.rightTalon.set(speed * Constants.ClimberSubsystem.maxSpeed);
+        this.rightTalon.set(speed * Constants.Climber.maxSpeed);
     }
 
     /**
@@ -70,12 +68,12 @@ public class ClimberSubsystem extends SubsystemBase {
             double sinRoll = Math.sin(roll.getAsDouble());
             this.setLeftSpeed(
                 (1.0 + sinRoll)                                     // * get the difference of height
-                * Constants.ClimberSubsystem.balanceAdjustQuotient  // * how much to adjust
-                * Constants.ClimberSubsystem.climbSpeed);           // * multiply get the actual motor speed
+                * Constants.Climber.balanceAdjustQuotient  // * how much to adjust
+                * Constants.Climber.climbSpeed);           // * multiply get the actual motor speed
             this.setRightSpeed(
                 (1.0 - sinRoll)
-                * Constants.ClimberSubsystem.balanceAdjustQuotient
-                * Constants.ClimberSubsystem.climbSpeed);
+                * Constants.Climber.balanceAdjustQuotient
+                * Constants.Climber.climbSpeed);
         }).until(() -> (!enable.getAsBoolean()) && limitSwitch.getAsBoolean());
     }
 

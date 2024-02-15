@@ -13,9 +13,9 @@ public class IntakeSubsystem extends SubsystemBase {
     private final CANSparkMax intakeMotor;
 
     public IntakeSubsystem() {
-        intakeMotor = new CANSparkMax(Constants.IntakeSubsystem.intakeMotorID, MotorType.kBrushless);
+        intakeMotor = new CANSparkMax(Constants.Intake.motorID, MotorType.kBrushless);
         intakeMotor.restoreFactoryDefaults();
-        intakeMotor.setIdleMode(Constants.IntakeSubsystem.idleMode);
+        intakeMotor.setIdleMode(Constants.Intake.idleMode);
     }
     
     public Command motorStop() {
@@ -27,13 +27,13 @@ public class IntakeSubsystem extends SubsystemBase {
     //}
 
     public Command run() {
-        if (intakeMotor.getForwardLimitSwitch(Constants.IntakeSubsystem.limitSwitchPolarity).isPressed()) {
+        if (intakeMotor.getForwardLimitSwitch(Constants.Intake.limitSwitchPolarity).isPressed()) {
             //motorRun();
             return this.motorStop();
         } else {
             //motorStop();
-            return this.run( ()-> intakeMotor.set(Constants.IntakeSubsystem.runningSpeed))
-                .until(()-> intakeMotor.getForwardLimitSwitch(Constants.IntakeSubsystem.limitSwitchPolarity).isPressed());
+            return this.run( ()-> intakeMotor.set(Constants.Intake.runningSpeed))
+                .until(()-> intakeMotor.getForwardLimitSwitch(Constants.Intake.limitSwitchPolarity).isPressed());
         }
         
     } 

@@ -124,15 +124,15 @@ public class SwerveSubsystem extends SubsystemBase {
       this::driveRobotRelative,
       new HolonomicPathFollowerConfig(
         new PIDConstants(
-          Constants.Autos.Swerve.translation_P,
-          Constants.Autos.Swerve.translation_I,
-          Constants.Autos.Swerve.translation_D),
+          Constants.Autos.translation_P,
+          Constants.Autos.translation_I,
+          Constants.Autos.translation_D),
         new PIDConstants(
-          Constants.Autos.Swerve.rotation_P,
-          Constants.Autos.Swerve.rotation_I,
-          Constants.Autos.Swerve.rotation_D),
-        Constants.Autos.Swerve.maxSpeed,
-        Constants.Autos.Swerve.driveBaseRadius,
+          Constants.Autos.rotation_P,
+          Constants.Autos.rotation_I,
+          Constants.Autos.rotation_D),
+        Constants.Autos.maxSpeed,
+        Constants.Autos.driveBaseRadius,
         new ReplanningConfig()),
       () -> {
         var alliance = DriverStation.getAlliance();

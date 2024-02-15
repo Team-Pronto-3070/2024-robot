@@ -11,8 +11,8 @@ public class ShooterSubsystem extends SubsystemBase {
   private final ShooterModule MotorRight;
 
   public ShooterSubsystem() {
-    MotorLeft = new ShooterModule(Constants.Shooter.Left.motorID);
-    MotorRight = new ShooterModule(Constants.Shooter.Right.motorID);
+    MotorLeft = new ShooterModule(Constants.Shooter.leftMotorID);
+    MotorRight = new ShooterModule(Constants.Shooter.rightMotorID);
   }
 
   public void launchSpeakerNote() {
