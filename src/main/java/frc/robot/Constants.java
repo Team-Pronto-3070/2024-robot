@@ -149,8 +149,9 @@ public final class Constants {
   }
 
   public static final class Climber {
-      public static final int leftTalonID = 0;
-      public static final int rightTalonID = 0;
+      public static final int leftID = 0;
+      public static final int rightID = 0;
+      public static final IdleMode idleMode = IdleMode.kBrake;
 
       public static final double climbSpeed = 0.2; // in percent output
       public static final double maxSpeed = 0.4; // in percent output

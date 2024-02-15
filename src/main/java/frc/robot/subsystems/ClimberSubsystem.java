@@ -18,21 +18,11 @@ public class ClimberSubsystem extends SubsystemBase {
   private final CANSparkMax rightMotor;
 
   public ClimberSubsystem() {
-    leftMotor =
-      new CANSparkMax(
-        Constants.Climber.leftTalonID,
-        MotorType.kBrushless
-      );
-    rightMotor =
-      new CANSparkMax(
-        Constants.Climber.rightTalonID,
-        MotorType.kBrushless
-      );
+    leftMotor = new CANSparkMax(Constants.Climber.leftID, MotorType.kBrushless);
+    rightMotor = new CANSparkMax(Constants.Climber.rightID, MotorType.kBrushless);
 
     leftMotor.restoreFactoryDefaults();
     rightMotor.restoreFactoryDefaults();
-    //leftMotor .configAllSettings(Constants.ClimberSubsystem.leftTalonConfig);
-    //rightMotor.configAllSettings(Constants.ClimberSubsystem.leftTalonConfig);
     leftMotor.setIdleMode(Constants.Climber.idleMode);
     rightMotor.setIdleMode(Constants.Climber.idleMode);
   }
