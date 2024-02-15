@@ -23,6 +23,8 @@ public class OI {
 
   public final Trigger gyroResetButton;
 
+  public final Trigger buttonStatus;
+
   public OI(int driverPort) {
     driver = new CommandXboxController(driverPort);
 
@@ -73,5 +75,7 @@ public class OI {
         (driveSlow.getAsBoolean() ? 0.25 : 1);
 
     gyroResetButton = driver.povRight();
+
+    buttonStatus = driver.x();
   }
 }

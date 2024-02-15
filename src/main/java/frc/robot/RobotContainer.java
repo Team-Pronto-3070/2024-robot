@@ -11,12 +11,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 public class RobotContainer {
 
   private final OI oi = new OI(Constants.OI.driverPort);
   private final SwerveSubsystem swerve = new SwerveSubsystem();
   private final ShooterSubsystem shooter = new ShooterSubsystem();
+  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
   public RobotContainer() {
     DataLogManager.start();
@@ -38,9 +40,12 @@ public class RobotContainer {
     oi.ampLaunchButton.onTrue(shooter.runOnce(shooter::launchAmpNote));
 
     configureBindings();
+    intakeSubsystem.setDefaultCommand(intakeSubsystem.motorStop());
+    
   }
 
   private void configureBindings() {
+    oi.buttonStatus.whileTrue(intakeSubsystem.run().until(()-> oi.buttonStatus.getAsBoolean() == false));
   }
 
   public Command getAutonomousCommand() {
