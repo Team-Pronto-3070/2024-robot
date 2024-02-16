@@ -4,16 +4,43 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 public class RobotContainer {
 
-  public RobotContainer() {
-    configureBindings();
-  }
+  private final OI oi = new OI(Constants.OI.driverPort);
+  private final SwerveSubsystem swerve = new SwerveSubsystem();
+  private final ShooterSubsystem shooter = new ShooterSubsystem();
+  private final IntakeSubsystem intake = new IntakeSubsystem();
 
-  private void configureBindings() {}
+  public RobotContainer() {
+    DataLogManager.start();
+    DriverStation.startDataLog(DataLogManager.getLog());
+
+    swerve.setDefaultCommand(swerve.run(() -> swerve.drive(
+        oi.processed_drive_x.getAsDouble(),
+        oi.processed_drive_y.getAsDouble(),
+        oi.processed_drive_rot.getAsDouble(),
+        true,
+        true)));
+    intake.setDefaultCommand(intake.run(intake::stop));
+
+    oi.interruptButton.onTrue(swerve.runOnce(swerve::stop))
+                      .onTrue(intake.runOnce(intake::stop));
+
+    oi.gyroResetButton.onTrue(swerve.runOnce(swerve::resetGyro));
+
+    oi.speakerLaunchButton.onTrue(shooter.runOnce(shooter::launchSpeakerNote));
+    oi.ampLaunchButton.onTrue(shooter.runOnce(shooter::launchAmpNote));
+
+    oi.smartIntakeButton.onTrue(intake.smartIntake());
+  }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");

@@ -6,12 +6,12 @@ import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.configs.VoltageConfigs;
+//import com.ctre.phoenix6.configs.TalonFXConfiguration;
+//import com.ctre.phoenix6.configs.VoltageConfigs;
 //import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.ControlModeValue;
-import com.ctre.phoenix6.signals.InvertedValue;
+//import com.ctre.phoenix6.signals.ControlModeValue;
+//import com.ctre.phoenix6.signals.InvertedValue;
 //import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -170,6 +170,17 @@ public class SwerveModule {
       CANSparkMax.ControlType.kPosition,
       0,
       Constants.Swerve.Turn.KV * rawDesiredState.omegaRadPerSecond
+    );
+  }
+
+  public SwerveModulePosition getPosition() {
+    return new SwerveModulePosition(
+      driveMotor.getRotorPosition().getValue() *
+      Constants.Swerve.wheelCircumference /
+      (Constants.Swerve.gearRatio * 2048.0),
+      new Rotation2d(
+        turningAbsoluteEncoder.getPosition() - chassisAngularOffset
+      )
     );
   }
 
