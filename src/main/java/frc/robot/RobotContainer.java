@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.path.PathPlannerPath;
+
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -18,6 +22,7 @@ public class RobotContainer {
   private final SwerveSubsystem swerve = new SwerveSubsystem();
   private final ShooterSubsystem shooter = new ShooterSubsystem();
   private final IntakeSubsystem intake = new IntakeSubsystem();
+  private final Autos autos = new Autos(swerve);
 
   public RobotContainer() {
     DataLogManager.start();
@@ -40,9 +45,10 @@ public class RobotContainer {
     oi.ampLaunchButton.onTrue(shooter.runOnce(shooter::launchAmpNote));
 
     oi.smartIntakeButton.onTrue(intake.smartIntake());
+
   }
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return autos.getAutonomousCommand();
   }
 }
