@@ -10,7 +10,7 @@
        _BBBBBB_               _BBBBBB_
       /  ___   \_____________/    Y   \
      /  / . \                   X   B  \
-    /   \___/      o (w) o        A     \
+    /   \___/      o (X) o        A     \
    /    ^                          ___   \
   |   <   >     _____________     / . \   |
   |     v      /             \    \___/   |
@@ -29,7 +29,7 @@
 | RB | Amp Shot Wind Up |
 | RS | Turn |
 | X  | |
-| Y  | Clumber Up |
+| Y  | Climber Up |
 | A  | Shoot |
 | B  | |
 | DD | Climber Climb |
