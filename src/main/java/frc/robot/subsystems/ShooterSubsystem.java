@@ -46,4 +46,9 @@ public class ShooterSubsystem extends SubsystemBase {
     MotorLeft.setRPM(ampRPM);
     MotorRight.setRPM(ampRPM * -1);
   }
+
+  public void stop() {
+    MotorLeft.stop();
+    MotorRight.stop();
+  }
 }

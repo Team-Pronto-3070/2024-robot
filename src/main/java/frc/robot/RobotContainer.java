@@ -29,10 +29,12 @@ public class RobotContainer {
         oi.processed_drive_rot.getAsDouble(),
         true,
         true)));
+    shooter.setDefaultCommand(shooter.run(shooter::stop));
     intake.setDefaultCommand(intake.run(intake::stop));
 
     oi.interruptButton.onTrue(swerve.runOnce(swerve::stop))
-                      .onTrue(intake.runOnce(intake::stop));
+                      .onTrue(intake.runOnce(intake::stop))
+                      .onTrue(shooter.runOnce(shooter::stop));
 
     oi.gyroResetButton.onTrue(swerve.runOnce(swerve::resetGyro));
 
