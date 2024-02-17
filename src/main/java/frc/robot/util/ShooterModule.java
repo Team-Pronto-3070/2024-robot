@@ -14,7 +14,9 @@ public class ShooterModule {
     shooterMotor = new CANSparkMax(motorPort, MotorType.kBrushless);
     shooterMotor.restoreFactoryDefaults();
     shooterMotor.setIdleMode(Constants.Shooter.Motor.idleMode);
+    shooterMotor.setInverted(Constants.Shooter.Motor.invert);
     shooterMotor.setSmartCurrentLimit(Constants.Shooter.Motor.currentLimit);
+    shooterMotor.setClosedLoopRampRate(Constants.Shooter.Motor.closedLoopRampTime);
 
     shooterMotor.getEncoder().setMeasurementPeriod(Constants.Shooter.Motor.encoderMeasurementPeriod);
     shooterMotor.getEncoder().setAverageDepth(Constants.Shooter.Motor.encoderMovingAverageDepth);
@@ -35,5 +37,9 @@ public class ShooterModule {
       CANSparkMax.ControlType.kVelocity,
       0
     );
+  }
+
+  public void stop() {
+    shooterMotor.set(0);
   }
 }
