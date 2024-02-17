@@ -157,7 +157,10 @@ public final class Constants {
   public static final class Climber {
       public static final int leftID = 0;
       public static final int rightID = 0;
+      public static final int leftLimitSwitchPort = 1;
+      public static final int rightLimitSwitchPort = 2;
       public static final IdleMode idleMode = IdleMode.kBrake;
+      public static final int currentLimit = 20;
 
       public static final double climbSpeed = 0.2; // in percent output
       public static final double maxSpeed = 0.4; // in percent output

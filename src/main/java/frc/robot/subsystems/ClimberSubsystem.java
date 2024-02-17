@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -17,6 +19,9 @@ public class ClimberSubsystem extends SubsystemBase {
   private final CANSparkMax leftMotor;
   private final CANSparkMax rightMotor;
 
+  public final DigitalInput leftLimitSwitch;
+  public final DigitalInput rightLimitSwitch;
+
   public ClimberSubsystem() {
     leftMotor = new CANSparkMax(Constants.Climber.leftID, MotorType.kBrushless);
     rightMotor = new CANSparkMax(Constants.Climber.rightID, MotorType.kBrushless);
@@ -25,6 +30,16 @@ public class ClimberSubsystem extends SubsystemBase {
     rightMotor.restoreFactoryDefaults();
     leftMotor.setIdleMode(Constants.Climber.idleMode);
     rightMotor.setIdleMode(Constants.Climber.idleMode);
+    leftMotor.setSmartCurrentLimit(Constants.Climber.currentLimit);
+    rightMotor.setSmartCurrentLimit(Constants.Climber.currentLimit);
+
+    leftLimitSwitch = new DigitalInput(Constants.Climber.leftLimitSwitchPort);
+    rightLimitSwitch = new DigitalInput(Constants.Climber.rightLimitSwitchPort);
+  }
+
+  public void stop() {
+    leftMotor.set(0);
+    rightMotor.set(0);
   }
 
   /**

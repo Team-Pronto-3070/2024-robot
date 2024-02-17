@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class RobotContainer {
@@ -18,6 +19,7 @@ public class RobotContainer {
   private final SwerveSubsystem swerve = new SwerveSubsystem();
   private final ShooterSubsystem shooter = new ShooterSubsystem();
   private final IntakeSubsystem intake = new IntakeSubsystem();
+  private final ClimberSubsystem climber = new ClimberSubsystem();
 
   public RobotContainer() {
     DataLogManager.start();
@@ -31,10 +33,12 @@ public class RobotContainer {
         true)));
     shooter.setDefaultCommand(shooter.run(shooter::stop));
     intake.setDefaultCommand(intake.run(intake::stop));
+    climber.setDefaultCommand(climber.run(climber::stop));
 
     oi.interruptButton.onTrue(swerve.runOnce(swerve::stop))
                       .onTrue(intake.runOnce(intake::stop))
-                      .onTrue(shooter.runOnce(shooter::stop));
+                      .onTrue(shooter.runOnce(shooter::stop))
+                      .onTrue(climber.runOnce(climber::stop));
 
     oi.gyroResetButton.onTrue(swerve.runOnce(swerve::resetGyro));
 
