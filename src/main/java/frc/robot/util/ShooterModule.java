@@ -16,6 +16,9 @@ public class ShooterModule {
     shooterMotor.setIdleMode(Constants.Shooter.Motor.idleMode);
     shooterMotor.setSmartCurrentLimit(Constants.Shooter.Motor.currentLimit);
 
+    shooterMotor.getEncoder().setMeasurementPeriod(Constants.Shooter.Motor.encoderMeasurementPeriod);
+    shooterMotor.getEncoder().setAverageDepth(Constants.Shooter.Motor.encoderMovingAverageDepth);
+
     shooterPID = shooterMotor.getPIDController();
     shooterPID.setFeedbackDevice(shooterMotor.getEncoder());
     shooterPID.setP(Constants.Shooter.Motor.PID.P);
