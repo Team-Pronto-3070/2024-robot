@@ -151,6 +151,7 @@ public final class Constants {
       public static final int limitSwitchPort = 0;
       public static final int motorID = 0;
       public static final IdleMode idleMode = IdleMode.kBrake;
+      public static final int currentLimit = 20;
   }
 
   public static final class Climber {
