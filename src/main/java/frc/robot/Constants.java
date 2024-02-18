@@ -59,7 +59,7 @@ public final class Constants {
 
     public static final class Drive {
       public static final class PID {
-        public static final double P = 0.1;
+        public static final double P = 0.02;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
