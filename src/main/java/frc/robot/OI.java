@@ -1,14 +1,15 @@
 package frc.robot;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import java.util.function.BooleanSupplier;
-import java.util.function.DoubleSupplier;
 
 public class OI {
 
   private CommandXboxController driver;
+  private CommandXboxController operator;
 
   public final Trigger interruptButton;
 
@@ -25,15 +26,32 @@ public class OI {
 
   public final Trigger gyroResetButton;
 
-  public final Trigger speakerLaunchButton;
-  public final Trigger ampLaunchButton;
+  public final Trigger speakerPrepButton;
+  public final Trigger ampPrepButton;
+  public final Trigger fireButton;
 
   public final Trigger smartIntakeButton;
 
-  public OI(int driverPort) {
-    driver = new CommandXboxController(driverPort);
+  public final Trigger climberUpButton;
+  public final Trigger climberDownButton;
 
-    interruptButton = driver.start();
+
+
+  public final Trigger ampHomeButton;
+  public final Trigger ampManualUpButton;
+  public final Trigger ampManualDownButton;
+  public final Trigger manualIntakeButton;
+  public final Trigger manualOuttakeButton;
+  public final Trigger climberManualOverrideButton;
+  public final DoubleSupplier climberLeftSpeed;
+  public final DoubleSupplier climberRightSpeed;
+
+
+  public OI() {
+    driver = new CommandXboxController(Constants.OI.driverPort);
+    operator = new CommandXboxController(Constants.OI.operatorPort);
+
+    interruptButton = driver.start().or(operator.start());
 
     drive_x = () -> -driver.getLeftY();
     drive_y = () -> -driver.getLeftX();
@@ -62,11 +80,26 @@ public class OI {
                                       : Constants.OI.slowSpeed);
 
     // driveSlow = driver.rightTrigger();
-    gyroResetButton = driver.povRight();
+    gyroResetButton = driver.x();
 
-    speakerLaunchButton = driver.rightBumper();
-    ampLaunchButton = driver.rightTrigger();
+    speakerPrepButton = driver.rightBumper();
+    ampPrepButton = driver.rightTrigger();
+    fireButton = driver.a();
 
     smartIntakeButton = driver.leftBumper();
+
+    climberUpButton = driver.y();
+    climberDownButton = driver.povDown();
+
+
+
+    ampHomeButton = operator.x();
+    ampManualUpButton = operator.povUp();
+    ampManualDownButton = operator.povDown();
+    manualIntakeButton = operator.a();
+    manualOuttakeButton = operator.b();
+    climberManualOverrideButton = operator.leftBumper();
+    climberLeftSpeed = () -> -operator.getLeftY();
+    climberRightSpeed = () -> -operator.getRightY();
   }
 }

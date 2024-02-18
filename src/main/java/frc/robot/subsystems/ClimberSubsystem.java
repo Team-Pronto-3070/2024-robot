@@ -67,6 +67,16 @@ public class ClimberSubsystem extends SubsystemBase {
     this.setRightSpeed(speed);
   }
 
+  public Command upCommand() {
+    return run(() -> setBothSpeed(0.2));
+  }
+
+  public Command downCommand() {
+    return run(() -> setBothSpeed(-0.2))
+          .until(leftLimitSwitch::get)
+          .until(rightLimitSwitch::get);
+  }
+
   /**
    *
    * @param roll in radians. positive roll is right side higher

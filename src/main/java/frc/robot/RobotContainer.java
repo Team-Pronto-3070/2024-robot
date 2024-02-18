@@ -4,18 +4,19 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.SwerveSubsystem;
 
 public class RobotContainer {
 
-  private final OI oi = new OI(Constants.OI.driverPort);
+  private final OI oi = new OI();
   private final SwerveSubsystem swerve = new SwerveSubsystem();
   private final ShooterSubsystem shooter = new ShooterSubsystem();
   private final IntakeSubsystem intake = new IntakeSubsystem();
@@ -42,10 +43,28 @@ public class RobotContainer {
 
     oi.gyroResetButton.onTrue(swerve.runOnce(swerve::resetGyro));
 
-    oi.speakerLaunchButton.onTrue(shooter.runOnce(shooter::launchSpeakerNote));
-    oi.ampLaunchButton.onTrue(shooter.runOnce(shooter::launchAmpNote));
+    oi.speakerPrepButton.onTrue(shooter.prepSpeakerCommand());
+    oi.ampPrepButton.onTrue(shooter.prepAmpCommand());
+    oi.fireButton.onTrue(shooter.fireCommand(intake));
 
-    oi.smartIntakeButton.onTrue(intake.smartIntake());
+    oi.smartIntakeButton.whileTrue(intake.smartIntakeCommand());
+
+    oi.climberUpButton.whileTrue(climber.upCommand());
+    oi.climberDownButton.whileTrue(climber.downCommand());
+
+    
+    //TODO
+    //ampHomeButton
+    //ampManualUpButton
+    //ampManualDownButton
+    oi.manualIntakeButton.whileTrue(intake.run(() -> intake.set(0.2)));
+    oi.manualOuttakeButton.whileTrue(intake.run(() -> intake.set(-0.2)));
+    oi.climberManualOverrideButton.and(() -> oi.climberLeftSpeed.getAsDouble() > Constants.OI.deadband)
+            .whileTrue(climber.run(() -> climber.setLeftSpeed(
+                MathUtil.applyDeadband(oi.climberLeftSpeed.getAsDouble(), Constants.OI.deadband, 1) * Constants.Climber.maxSpeed)));
+    oi.climberManualOverrideButton.and(() -> oi.climberRightSpeed.getAsDouble() > Constants.OI.deadband)
+            .whileTrue(climber.run(() -> climber.setRightSpeed(
+                MathUtil.applyDeadband(oi.climberRightSpeed.getAsDouble(), Constants.OI.deadband, 1) * Constants.Climber.maxSpeed)));
   }
 
   public Command getAutonomousCommand() {

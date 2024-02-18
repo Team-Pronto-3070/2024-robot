@@ -134,6 +134,8 @@ public final class Constants {
 
       public static final double ampSpeed = 30.0; // Motor speed in RPM
       public static final double speakerSpeed = 60.0; // Motor speed in RPM
+      public static final double rightMod = 1.0;
+      public static final double RPMtolerance = 200;
 
       public static final class PID {
         public static final double P = 1.0;

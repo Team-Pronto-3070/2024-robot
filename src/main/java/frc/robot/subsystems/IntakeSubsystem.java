@@ -27,7 +27,11 @@ public class IntakeSubsystem extends SubsystemBase {
         intakeMotor.set(0);
     }
 
-    public Command smartIntake() {
+    public void set(double speed) {
+        intakeMotor.set(speed);
+    }
+
+    public Command smartIntakeCommand() {
         return this.run(() -> intakeMotor.set(Constants.Intake.speed))
             .until(limitSwitch::get);
     } 

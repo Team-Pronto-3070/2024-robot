@@ -2,12 +2,14 @@ package frc.robot.util;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import frc.robot.Constants;
 
 public class ShooterModule {
 
   private final CANSparkMax shooterMotor;
+  private final RelativeEncoder shooterEncoder;
   private final SparkPIDController shooterPID;
 
   public ShooterModule(int motorPort) {
@@ -18,11 +20,12 @@ public class ShooterModule {
     shooterMotor.setSmartCurrentLimit(Constants.Shooter.Motor.currentLimit);
     shooterMotor.setClosedLoopRampRate(Constants.Shooter.Motor.closedLoopRampTime);
 
-    shooterMotor.getEncoder().setMeasurementPeriod(Constants.Shooter.Motor.encoderMeasurementPeriod);
-    shooterMotor.getEncoder().setAverageDepth(Constants.Shooter.Motor.encoderMovingAverageDepth);
+    shooterEncoder = shooterMotor.getEncoder();
+    shooterEncoder.setMeasurementPeriod(Constants.Shooter.Motor.encoderMeasurementPeriod);
+    shooterEncoder.setAverageDepth(Constants.Shooter.Motor.encoderMovingAverageDepth);
 
     shooterPID = shooterMotor.getPIDController();
-    shooterPID.setFeedbackDevice(shooterMotor.getEncoder());
+    shooterPID.setFeedbackDevice(shooterEncoder);
     shooterPID.setP(Constants.Shooter.Motor.PID.P);
     shooterPID.setI(Constants.Shooter.Motor.PID.I);
     shooterPID.setD(Constants.Shooter.Motor.PID.D);
@@ -37,6 +40,10 @@ public class ShooterModule {
       CANSparkMax.ControlType.kVelocity,
       0
     );
+  }
+
+  public double getRPM() {
+    return shooterEncoder.getVelocity();
   }
 
   public void stop() {
