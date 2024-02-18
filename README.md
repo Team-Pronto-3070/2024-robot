@@ -19,17 +19,38 @@
 
 
 
+Driver:
 
 | Button | Function |
 |-|-|
+| Start | Interrupt |
 | LT | *FAST MODE* |
-| LB | |
-| LS | Forward / Backward |
-| RT | Speaker Shot Wind Up |
-| RB | Amp Shot Wind Up |
+| LB | Smart Intake |
+| LS | Drive |
+| RT | Amp Shot Wind Up |
+| RB | Speaker Shot Wind Up |
 | RS | Turn |
-| X  | |
+| X  | Gyro Reset |
 | Y  | Climber Up |
 | A  | Shoot |
 | B  | |
 | DD | Climber Climb |
+
+
+Operator:
+
+| Button | Function |
+|-|-|
+| Start | Interrupt |
+| LT | |
+| LB | Manual Climber Override |
+| LS | Manual Left Climber (with override) |
+| RT | Amp Shot Wind Up |
+| RB | Speaker Shot Wind Up |
+| RS | Manual Right Climer (with override) |
+| X  | Amp Bar Home |
+| Y  | |
+| A  | Manual Intake |
+| B  | Manual Outake |
+| DU | Manual Amp Bar Up |
+| DD | Manual Amp Bar Down|
