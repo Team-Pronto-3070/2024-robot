@@ -78,7 +78,8 @@ public class ShooterSubsystem extends SubsystemBase {
       intake.run(() -> intake.set(0.2)).withTimeout(2),
       intake.runOnce(intake::stop),
       this.runOnce(this::stop),
-      Commands.either(Commands.print("ampBarHomeCommand"), Commands.none(), () -> target == Target.AMP) //TODO: make ampBarHomeCommand
+      Commands.either(Commands.print("ampBarHomeCommand"), Commands.none(), () -> target == Target.AMP), //TODO: make ampBarHomeCommand
+      this.runOnce(() -> target = Target.NONE)
     );
   }
 
