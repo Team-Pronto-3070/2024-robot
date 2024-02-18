@@ -16,7 +16,8 @@ public class OI {
   public final DoubleSupplier drive_y;
   public final DoubleSupplier drive_rot;
 
-  public final BooleanSupplier driveSlow;
+  public final Trigger driveFast;
+  public final DoubleSupplier driveBoost;
 
   public final DoubleSupplier processed_drive_x;
   public final DoubleSupplier processed_drive_y;
@@ -38,14 +39,27 @@ public class OI {
     drive_y = () -> -driver.getLeftX();
     drive_rot = () -> -driver.getRightX();
 
-    driveSlow = () -> true;
+    driveFast = driver.leftTrigger(Constants.OI.triggerDeadband);
+    driveBoost = () -> driver.getLeftTriggerAxis();
 
+    //processed_drive_x = () -> Math.pow( MathUtil.applyDeadband(drive_x.getAsDouble(), Constants.OI.deadband), 3)
+                            //* Constants.Swerve.maxSpeed * (driveSlow.getAsBoolean() ? Constants.OI.slowSpeed : 1);
+    //processed_drive_y = () -> Math.pow( MathUtil.applyDeadband(drive_y.getAsDouble(), Constants.OI.deadband), 3)
+                            //* Constants.Swerve.maxSpeed * (driveSlow.getAsBoolean() ? Constants.OI.slowSpeed : 1);
+    //processed_drive_rot = () -> Math.pow( MathUtil.applyDeadband( drive_rot.getAsDouble(), Constants.OI.deadband), 3)
+                            //* Constants.Swerve.maxAngularSpeed * (driveSlow.getAsBoolean() ? 0.25 : 1);
     processed_drive_x = () -> Math.pow( MathUtil.applyDeadband(drive_x.getAsDouble(), Constants.OI.deadband), 3)
-                            * Constants.Swerve.maxSpeed * (driveSlow.getAsBoolean() ? Constants.OI.slowSpeed : 1);
+                            * Constants.Swerve.maxSpeed * (driveFast.getAsBoolean() ? 
+                                      Constants.OI.slowSpeed + MathUtil.applyDeadband(driveBoost.getAsDouble(), Constants.OI.triggerDeadband, 1 - Constants.OI.slowSpeed)
+                                      : Constants.OI.slowSpeed);
     processed_drive_y = () -> Math.pow( MathUtil.applyDeadband(drive_y.getAsDouble(), Constants.OI.deadband), 3)
-                            * Constants.Swerve.maxSpeed * (driveSlow.getAsBoolean() ? Constants.OI.slowSpeed : 1);
-    processed_drive_rot = () -> Math.pow( MathUtil.applyDeadband( drive_rot.getAsDouble(), Constants.OI.deadband), 3)
-                            * Constants.Swerve.maxAngularSpeed * (driveSlow.getAsBoolean() ? 0.25 : 1);
+                            * Constants.Swerve.maxSpeed * (driveFast.getAsBoolean() ? 
+                                      Constants.OI.slowSpeed + MathUtil.applyDeadband(driveBoost.getAsDouble(), Constants.OI.triggerDeadband, 1 - Constants.OI.slowSpeed)
+                                      : Constants.OI.slowSpeed);
+    processed_drive_rot = () -> Math.pow( MathUtil.applyDeadband(drive_rot.getAsDouble(), Constants.OI.deadband), 3)
+                            * Constants.Swerve.maxAngularSpeed * (driveFast.getAsBoolean() ? 
+                                      Constants.OI.slowSpeed + MathUtil.applyDeadband(driveBoost.getAsDouble(), Constants.OI.triggerDeadband, 1 - Constants.OI.slowSpeed)
+                                      : Constants.OI.slowSpeed);
 
     // driveSlow = driver.rightTrigger();
     gyroResetButton = driver.povRight();
