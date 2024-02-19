@@ -183,8 +183,9 @@ public final class Constants {
       public static final double F = 0.0;
     }
 
-    public static final double upPosition = 0.0;
+    public static final double upPosition = 1.0;
     public static final double homePosition = 0.0;
+    public static final double tolerance = 0.2;
   }
 
 

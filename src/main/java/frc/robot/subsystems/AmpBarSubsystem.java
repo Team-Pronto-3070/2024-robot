@@ -6,6 +6,7 @@ import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -47,6 +48,10 @@ public class AmpBarSubsystem extends SubsystemBase {
                     new TrapezoidProfile.State(Constants.AmpBar.upPosition, 0)).position, 
                     CANSparkMax.ControlType.kPosition))
                 .until(() -> profile.isFinished(0.02));
+    }
+
+    public boolean atTarget() {
+        return MathUtil.isNear(Constants.AmpBar.upPosition, encoder.getPosition(), Constants.AmpBar.tolerance);
     }
 
     private TrapezoidProfile.State getState() {
