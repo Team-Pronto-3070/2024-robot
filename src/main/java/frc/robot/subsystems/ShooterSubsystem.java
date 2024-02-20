@@ -59,11 +59,11 @@ public class ShooterSubsystem extends SubsystemBase {
     );
   }
 
-  public Command prepAmpCommand() {
+  public Command prepAmpCommand(AmpBarSubsystem ampBar) {
     return Commands.parallel(
       new InstantCommand(() -> target = Target.AMP),
-      Commands.print("ampBarUpCommand"), //TODO: make ampBarUpCommand
-      run(() -> {
+      ampBar.upCommand(),
+      runOnce(() -> {
         ampRPM = SmartDashboard.getNumber("Amp Note RPM", ampRPM);
         rightMod = SmartDashboard.getNumber("Right Flywheel Multiplier", rightMod);
         motorLeft.setRPM(ampRPM);
@@ -72,14 +72,14 @@ public class ShooterSubsystem extends SubsystemBase {
     );
   }
 
-  public Command fireCommand(IntakeSubsystem intake) {
+  public Command fireCommand(IntakeSubsystem intake, AmpBarSubsystem ampBar) {
     return Commands.sequence(
       Commands.waitUntil(new Trigger(this::atTarget).debounce(0.5)
-                    .and(new Trigger(() -> true))), //TODO: make ampBar.atTarget()
+                    .and(new Trigger(() -> ampBar.atTarget()))),
       intake.run(() -> intake.set(0.2)).withTimeout(2),
       intake.runOnce(intake::stop),
       this.runOnce(this::stop),
-      Commands.either(Commands.print("ampBarHomeCommand"), Commands.none(), () -> target == Target.AMP), //TODO: make ampBarHomeCommand
+      Commands.either(ampBar.homeCommand(), Commands.none(), () -> target == Target.AMP),
       new InstantCommand(() -> target = Target.NONE)
     );
   }

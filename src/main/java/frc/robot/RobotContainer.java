@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.subsystems.AmpBarSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -21,6 +22,7 @@ public class RobotContainer {
   private final ShooterSubsystem shooter = new ShooterSubsystem();
   private final IntakeSubsystem intake = new IntakeSubsystem();
   private final ClimberSubsystem climber = new ClimberSubsystem();
+  private final AmpBarSubsystem ampBar = new AmpBarSubsystem();
 
   public RobotContainer() {
     DataLogManager.start();
@@ -44,8 +46,8 @@ public class RobotContainer {
     oi.gyroResetButton.onTrue(swerve.runOnce(swerve::resetGyro));
 
     oi.speakerPrepButton.onTrue(shooter.prepSpeakerCommand());
-    oi.ampPrepButton.onTrue(shooter.prepAmpCommand());
-    oi.fireButton.onTrue(shooter.fireCommand(intake));
+    oi.ampPrepButton.onTrue(shooter.prepAmpCommand(ampBar));
+    oi.fireButton.onTrue(shooter.fireCommand(intake, ampBar));
 
     oi.smartIntakeButton.whileTrue(intake.smartIntakeCommand());
 

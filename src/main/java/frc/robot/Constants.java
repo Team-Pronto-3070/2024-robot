@@ -168,6 +168,25 @@ public final class Constants {
       public static final double balanceAdjustQuotient = 0.5; // TODO
 
   }
+
+  public static final class AmpBar {
+    public static final int motorID = 0;
+    public static final int currentLimit = 20;
+    
+    public static final class PID {
+
+      public static final double P = 1.0;
+      public static final double I = 0.0;
+      public static final double D = 0.0;
+      public static final double F = 0.0;
+    }
+
+    public static final double upPosition = 1.0;
+    public static final double homePosition = 0.0;
+    public static final double tolerance = 0.2;
+  }
+
+
   public static final class Autos {
     public static final PIDConstants translationPID = new PIDConstants(1, 0, 0);
     public static final PIDConstants rotationPID = new PIDConstants(1, 0, 0);
