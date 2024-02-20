@@ -63,7 +63,7 @@ public class ShooterSubsystem extends SubsystemBase {
     return Commands.parallel(
       new InstantCommand(() -> target = Target.AMP),
       ampBar.upCommand(),
-      runOnce(() -> {
+      run(() -> {
         ampRPM = SmartDashboard.getNumber("Amp Note RPM", ampRPM);
         rightMod = SmartDashboard.getNumber("Right Flywheel Multiplier", rightMod);
         motorLeft.setRPM(ampRPM);
@@ -84,6 +84,13 @@ public class ShooterSubsystem extends SubsystemBase {
       Commands.either(ampBar.homeCommand(), Commands.none(), () -> target == Target.AMP),
       new InstantCommand(() -> target = Target.NONE)
     );
+
   }
 
+  @Override
+  public void periodic() {
+    SmartDashboard.putNumber("left shooter RPM", motorLeft.getRPM());
+    SmartDashboard.putNumber("right shooter RPM", motorRight.getRPM());
+    SmartDashboard.putString("shooter target", "" + target);
+  }
 }
