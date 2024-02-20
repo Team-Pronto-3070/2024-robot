@@ -41,7 +41,8 @@ public class RobotContainer {
     oi.interruptButton.onTrue(swerve.runOnce(swerve::stop))
                       .onTrue(intake.runOnce(intake::stop))
                       .onTrue(shooter.runOnce(shooter::stop))
-                      .onTrue(climber.runOnce(climber::stop));
+                      .onTrue(climber.runOnce(climber::stop))
+                      .onTrue(ampBar.runOnce(ampBar::stop));
 
     oi.gyroResetButton.onTrue(swerve.runOnce(swerve::resetGyro));
 
@@ -55,10 +56,9 @@ public class RobotContainer {
     oi.climberDownButton.whileTrue(climber.downCommand());
 
     
-    //TODO
-    //ampHomeButton
-    //ampManualUpButton
-    //ampManualDownButton
+    oi.ampHomeButton.onTrue(ampBar.homeCommand());
+    oi.ampManualDownButton.whileTrue(ampBar.run(() -> ampBar.set(0.2)));
+    oi.ampManualUpButton.whileTrue(ampBar.run(() -> ampBar.set(-0.2)));
     oi.manualIntakeButton.whileTrue(intake.run(() -> intake.set(0.2)));
     oi.manualOuttakeButton.whileTrue(intake.run(() -> intake.set(-0.2)));
     oi.climberManualOverrideButton.and(() -> Math.abs(oi.climberLeftSpeed.getAsDouble()) > Constants.OI.deadband)

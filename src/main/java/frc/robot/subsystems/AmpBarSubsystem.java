@@ -7,7 +7,6 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -39,6 +38,14 @@ public class AmpBarSubsystem extends SubsystemBase {
 
 
         profile = new TrapezoidProfile(new TrapezoidProfile.Constraints(1.75, 0.75));
+    }
+
+    public void stop() {
+        ampBarMotor.set(0);
+    }
+
+    public void set(double speed) {
+        ampBarMotor.set(speed);
     }
 
     public Command homeCommand() {
