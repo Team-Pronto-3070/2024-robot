@@ -29,10 +29,15 @@ public class ClimberSubsystem extends SubsystemBase {
 
     leftMotor.restoreFactoryDefaults();
     rightMotor.restoreFactoryDefaults();
+
+    leftMotor.setInverted(true);
+
     leftMotor.setIdleMode(Constants.Climber.idleMode);
     rightMotor.setIdleMode(Constants.Climber.idleMode);
     leftMotor.setSmartCurrentLimit(Constants.Climber.currentLimit);
     rightMotor.setSmartCurrentLimit(Constants.Climber.currentLimit);
+    leftMotor.burnFlash();
+    rightMotor.burnFlash();
 
     leftLimitSwitch = new DigitalInput(Constants.Climber.leftLimitSwitchPort);
     rightLimitSwitch = new DigitalInput(Constants.Climber.rightLimitSwitchPort);

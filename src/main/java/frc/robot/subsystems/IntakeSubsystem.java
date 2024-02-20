@@ -20,6 +20,7 @@ public class IntakeSubsystem extends SubsystemBase {
         intakeMotor.restoreFactoryDefaults();
         intakeMotor.setIdleMode(Constants.Intake.idleMode);
         intakeMotor.setSmartCurrentLimit(Constants.Intake.currentLimit);
+        intakeMotor.burnFlash();
 
         limitSwitch = new DigitalInput(Constants.Intake.limitSwitchPort);
     }

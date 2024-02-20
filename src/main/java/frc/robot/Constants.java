@@ -170,7 +170,7 @@ public final class Constants {
   }
 
   public static final class AmpBar {
-    public static final int motorID = 0;
+    public static final int motorID = 14;
     public static final int currentLimit = 20;
     
     public static final class PID {
