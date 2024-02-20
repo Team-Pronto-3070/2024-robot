@@ -81,7 +81,7 @@ public final class Constants {
       public static final double openLoopRamp = 0.25;
       public static final double closedLoopRamp = 0.0;
 
-      public static final InvertedValue motorInvert = InvertedValue.Clockwise_Positive; // TODO: Is clockwise or counter clockwise correct?
+      public static final InvertedValue motorInvert = InvertedValue.CounterClockwise_Positive;
       public static final NeutralModeValue neutralMode = NeutralModeValue.Brake;
     }
 
