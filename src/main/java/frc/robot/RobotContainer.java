@@ -59,12 +59,12 @@ public class RobotContainer {
     //ampManualDownButton
     oi.manualIntakeButton.whileTrue(intake.run(() -> intake.set(0.2)));
     oi.manualOuttakeButton.whileTrue(intake.run(() -> intake.set(-0.2)));
-    oi.climberManualOverrideButton.and(() -> oi.climberLeftSpeed.getAsDouble() > Constants.OI.deadband)
+    oi.climberManualOverrideButton.and(() -> Math.abs(oi.climberLeftSpeed.getAsDouble()) > Constants.OI.deadband)
             .whileTrue(climber.run(() -> climber.setLeftSpeed(
-                MathUtil.applyDeadband(oi.climberLeftSpeed.getAsDouble(), Constants.OI.deadband, 1) * Constants.Climber.maxSpeed)));
-    oi.climberManualOverrideButton.and(() -> oi.climberRightSpeed.getAsDouble() > Constants.OI.deadband)
+                MathUtil.applyDeadband(oi.climberLeftSpeed.getAsDouble(), Constants.OI.deadband, 1))));
+    oi.climberManualOverrideButton.and(() -> Math.abs(oi.climberRightSpeed.getAsDouble()) > Constants.OI.deadband)
             .whileTrue(climber.run(() -> climber.setRightSpeed(
-                MathUtil.applyDeadband(oi.climberRightSpeed.getAsDouble(), Constants.OI.deadband, 1) * Constants.Climber.maxSpeed)));
+                MathUtil.applyDeadband(oi.climberRightSpeed.getAsDouble(), Constants.OI.deadband, 1))));
   }
 
   public Command getAutonomousCommand() {

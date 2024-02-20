@@ -2,24 +2,24 @@
 
 
 
-## controls:
+## Driver Controls:
 
-```                                          
-          __                     __
-         |  |                   |  |
-       _BBBBBB_               _BBBBBB_
-      /  ___   \_____________/    Y   \
-     /  / . \                   X   B  \
-    /   \___/      o (X) o        A     \
-   /    ^                          ___   \
-  |   <   >     _____________     / . \   |
-  |     v      /             \    \___/   |
-   \__________/               \__________/
+```     
+           Fast                           Amp
+           Mode                          Wind-Up
+      Smart  \                             /  Speaker
+      Intake  \                           /   Wind-Up
+          \__  \__         Gyro Reset  __/  ___/
+             \ |  |               \   |  | /
+   Drive     _##LB##_   Interrupt  \_##RB##_
+      \     /  ___   \_______\_____/\   Y---\---- Climber Up
+       \___/__/ . \           \      `X   B  \       
+          /   \___/      o (X) o        A-----\-- Shoot   
+         /    ^                          ___   \  
+Climber |   <   >     _____________     / . \___|___,- Turn
+ Climb -|-----v      /             \    \___/   |
+         \__________/               \__________/
 ```
-
-
-
-Driver:
 
 | Button | Function |
 |-|-|
@@ -37,7 +37,24 @@ Driver:
 | DD | Climber Climb |
 
 
-Operator:
+## Operator Controls:
+
+```     
+                                          Amp 
+                                         Wind-Up
+       Manual                              /  Speaker
+   Climber Override           Amp bar     /   Wind-Up
+          \__   __              Home   __/  ___/
+  Manual     \ |  |               \   |  | /
+Left Climber _##LB##_   Interrupt  \_##RB##_
+      \     /  ___   \_______\_____/\   Y   \
+Manual \___/__/ . \           \      `X   B--\----- Manual Outake
+Amp Bar   /   \___/      o (X) o        A-----\-- Manual Intake   
+  Up  `--/----^                          ___   \     __  Manual
+Manual  |   <   >     _____________     / . \___|___/  Right Climber
+Amp Bar-|-----v      /             \    \___/   |
+Down     \__________/               \__________/
+```
 
 | Button | Function |
 |-|-|

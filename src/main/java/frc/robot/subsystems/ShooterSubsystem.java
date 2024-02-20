@@ -4,6 +4,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
@@ -48,8 +49,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public Command prepSpeakerCommand() {
     return Commands.parallel(
-      runOnce(() -> target = Target.SPEAKER),
-      runOnce(() -> {
+      new InstantCommand(() -> target = Target.SPEAKER),
+      run(() -> {
         speakerRPM = SmartDashboard.getNumber("Speaker Note RPM", speakerRPM);
         rightMod = SmartDashboard.getNumber("Right Flywheel Multiplier", rightMod);
         motorLeft.setRPM(speakerRPM);
@@ -60,9 +61,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public Command prepAmpCommand() {
     return Commands.parallel(
-      runOnce(() -> target = Target.AMP),
+      new InstantCommand(() -> target = Target.AMP),
       Commands.print("ampBarUpCommand"), //TODO: make ampBarUpCommand
-      runOnce(() -> {
+      run(() -> {
         ampRPM = SmartDashboard.getNumber("Amp Note RPM", ampRPM);
         rightMod = SmartDashboard.getNumber("Right Flywheel Multiplier", rightMod);
         motorLeft.setRPM(ampRPM);
@@ -79,7 +80,7 @@ public class ShooterSubsystem extends SubsystemBase {
       intake.runOnce(intake::stop),
       this.runOnce(this::stop),
       Commands.either(Commands.print("ampBarHomeCommand"), Commands.none(), () -> target == Target.AMP), //TODO: make ampBarHomeCommand
-      this.runOnce(() -> target = Target.NONE)
+      new InstantCommand(() -> target = Target.NONE)
     );
   }
 
