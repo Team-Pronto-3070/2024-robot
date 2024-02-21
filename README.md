@@ -66,7 +66,7 @@ Down     \__________/               \__________/
 | RB | Speaker Shot Wind Up |
 | RS | Manual Right Climer (with override) |
 | X  | Amp Bar Home |
-| Y  | |
+| Y  | Amp Bar Up |
 | A  | Manual Intake |
 | B  | Manual Outake |
 | DU | Manual Amp Bar Up |

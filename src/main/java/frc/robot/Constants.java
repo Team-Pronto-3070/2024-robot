@@ -114,7 +114,7 @@ public final class Constants {
   public static final class OI {
     public static final int driverPort = 0;
     public static final int operatorPort = 1;
-    public static final double deadband = 0.20;
+    public static final double deadband = 0.04;
     public static final double triggerDeadband = 0.5;
 
     public static final double slowSpeed = 0.5;
@@ -132,13 +132,13 @@ public final class Constants {
       public static final int currentLimit = 30;
       public static final double closedLoopRampTime = 0.5; //seconds
 
-      public static final double ampSpeed = 1000.0; // Motor speed in RPM
+      public static final double ampSpeed = 1200.0; // Motor speed in RPM
       public static final double speakerSpeed = 3000.0; // Motor speed in RPM
       public static final double rightMod = 1.0;
       public static final double RPMtolerance = 200;
 
       public static final class PID {
-        public static final double P = 1.0;
+        public static final double P = 0.1;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
@@ -151,7 +151,7 @@ public final class Constants {
       public static final int limitSwitchPort = 0;
       public static final int motorID = 13;
       public static final IdleMode idleMode = IdleMode.kBrake;
-      public static final int currentLimit = 20;
+      public static final int currentLimit = 30;
   }
 
   public static final class Climber {
@@ -171,19 +171,25 @@ public final class Constants {
 
   public static final class AmpBar {
     public static final int motorID = 14;
-    public static final int currentLimit = 20;
+    public static final int currentLimit = 40;
+
     
     public static final class PID {
-
-      public static final double P = 1.0;
+      
+      public static final double P = 3.0;
       public static final double I = 0.0;
       public static final double D = 0.0;
       public static final double F = 0.0;
     }
 
-    public static final double upPosition = 1.0;
-    public static final double homePosition = 0.0;
-    public static final double tolerance = 0.2;
+    public static final float forwardSoftLimit = 0.400f;
+    public static final float reverseSoftLimit = 0.072f;
+    public static final double upPosition = 0.077;
+    public static final double homePosition = 0.395;
+    public static final double tolerance = 0.10;
+
+    public static final double maxVelocity = 1.5;
+    public static final double maxAcceleration = 1.5;
   }
 
 

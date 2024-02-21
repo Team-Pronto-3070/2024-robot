@@ -37,6 +37,7 @@ public class RobotContainer {
     shooter.setDefaultCommand(shooter.run(shooter::stop));
     intake.setDefaultCommand(intake.run(intake::stop));
     climber.setDefaultCommand(climber.run(climber::stop));
+    ampBar.setDefaultCommand(ampBar.run(ampBar::stop));
 
     oi.interruptButton.onTrue(swerve.runOnce(swerve::stop))
                       .onTrue(intake.runOnce(intake::stop))
@@ -53,13 +54,14 @@ public class RobotContainer {
     oi.smartIntakeButton.whileTrue(intake.smartIntakeCommand());
 
     oi.climberUpButton.whileTrue(climber.upCommand());
-    oi.climberDownButton.whileTrue(climber.downCommand());
+    oi.climberDownButton.onTrue(climber.downCommand());
 
     
     oi.ampHomeButton.onTrue(ampBar.homeCommand());
-    oi.ampManualDownButton.whileTrue(ampBar.run(() -> ampBar.set(0.2)));
-    oi.ampManualUpButton.whileTrue(ampBar.run(() -> ampBar.set(-0.2)));
-    oi.manualIntakeButton.whileTrue(intake.run(() -> intake.set(0.2)));
+    oi.ampUpButton.onTrue(ampBar.upCommand());
+    oi.ampManualDownButton.whileTrue(ampBar.run(() -> ampBar.set(0.4)));
+    oi.ampManualUpButton.whileTrue(ampBar.run(() -> ampBar.set(-0.4)));
+    oi.manualIntakeButton.whileTrue(intake.run(() -> intake.set(1)));
     oi.manualOuttakeButton.whileTrue(intake.run(() -> intake.set(-0.2)));
     oi.climberManualOverrideButton.and(() -> Math.abs(oi.climberLeftSpeed.getAsDouble()) > Constants.OI.deadband)
             .whileTrue(climber.run(() -> climber.setLeftSpeed(

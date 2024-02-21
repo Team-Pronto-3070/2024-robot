@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
@@ -78,11 +79,11 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public Command downCommand() {
-    return run(() -> setBothSpeed(-0.2))
-          .until(leftLimitSwitch::get)
-          .until(rightLimitSwitch::get)
-          .until(() -> leftMotor.getOutputCurrent() > 20)
-          .until(() -> rightMotor.getOutputCurrent() > 20);
+    return run(() -> setBothSpeed(-0.4))
+          //.until(leftLimitSwitch::get)
+          //.until(rightLimitSwitch::get)
+          .until(new Trigger(() -> leftMotor.getOutputCurrent() > 35).debounce(0.5))
+          .until(new Trigger(() -> rightMotor.getOutputCurrent() > 35).debounce(0.5));
   }
 
   /**
