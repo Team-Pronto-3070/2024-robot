@@ -28,24 +28,24 @@ public final class Constants {
 
     // offsets are in radians
     public static final class FrontLeft {
-      public static final int driveID = 4;
-      public static final int turnID = 8;
+      public static final int driveID = 2;
+      public static final int turnID = 6;
       public static final double offset = -Math.PI / 2;
     }
 
     public static final class FrontRight {
       // public static final int driveID = 3;
       // public static final int turnID = 7;
-      public static final int driveID = 2;
-      public static final int turnID = 6;
+      public static final int driveID = 1;
+      public static final int turnID = 5;
       public static final double offset = 0.0;
     }
 
     public static final class RearLeft {
       // public static final int driveID = 2;
       // public static final int turnID = 6;
-      public static final int driveID = 1;
-      public static final int turnID = 5;
+      public static final int driveID = 4;
+      public static final int turnID = 8;
       public static final double offset = Math.PI;
     }
 
@@ -59,7 +59,7 @@ public final class Constants {
 
     public static final class Drive {
       public static final class PID {
-        public static final double P = 0.1;
+        public static final double P = 0.02;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
@@ -121,22 +121,27 @@ public final class Constants {
   }
 
   public static final class Shooter {
-    public static final int leftMotorID = 1;
-    public static final int rightMotorID = 2;
+    public static final int leftMotorID = 9;
+    public static final int rightMotorID = 10;
 
     public static final class Motor {
+      public static final boolean invert = true;
       public static final IdleMode idleMode = IdleMode.kCoast;
-      public static final int currentLimit = 20;
-      public static final double ampSpeed = 30.0; // Motor speed in RPM
-      public static final double speakerSpeed = 60.0; // Motor speed in RPM
+      public static final int encoderMeasurementPeriod = 16;
+      public static final int encoderMovingAverageDepth = 2;
+      public static final int currentLimit = 30;
+      public static final double closedLoopRampTime = 0.5; //seconds
+
+      public static final double ampSpeed = 1000.0; // Motor speed in RPM
+      public static final double speakerSpeed = 3000.0; // Motor speed in RPM
+      public static final double rightMod = 1.0;
+      public static final double RPMtolerance = 200;
 
       public static final class PID {
         public static final double P = 1.0;
         public static final double I = 0.0;
         public static final double D = 0.0;
         public static final double F = 0.0;
-        public static final double minOutput = -1;
-        public static final double maxOutput = 1;
       }
     }
   }
@@ -144,17 +149,21 @@ public final class Constants {
   public static final class Intake {
       public static final double speed = 0.2;
       public static final int limitSwitchPort = 0;
-      public static final int motorID = 0;
+      public static final int motorID = 13;
       public static final IdleMode idleMode = IdleMode.kBrake;
+      public static final int currentLimit = 20;
   }
 
   public static final class Climber {
-      public static final int leftID = 0;
-      public static final int rightID = 0;
+      public static final int leftID = 11;
+      public static final int rightID = 12;
+      public static final int leftLimitSwitchPort = 1;
+      public static final int rightLimitSwitchPort = 2;
       public static final IdleMode idleMode = IdleMode.kBrake;
+      public static final int currentLimit = 40;
 
       public static final double climbSpeed = 0.2; // in percent output
-      public static final double maxSpeed = 0.4; // in percent output
+      public static final double maxSpeed = 1; // in percent output
 
       public static final double balanceAdjustQuotient = 0.5; // TODO
 

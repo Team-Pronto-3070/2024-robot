@@ -18,6 +18,7 @@ public class IntakeSubsystem extends SubsystemBase {
         intakeMotor = new CANSparkMax(Constants.Intake.motorID, MotorType.kBrushless);
         intakeMotor.restoreFactoryDefaults();
         intakeMotor.setIdleMode(Constants.Intake.idleMode);
+        intakeMotor.setSmartCurrentLimit(Constants.Intake.currentLimit);
 
         limitSwitch = new DigitalInput(Constants.Intake.limitSwitchPort);
     }
@@ -26,7 +27,11 @@ public class IntakeSubsystem extends SubsystemBase {
         intakeMotor.set(0);
     }
 
-    public Command smartIntake() {
+    public void set(double speed) {
+        intakeMotor.set(speed);
+    }
+
+    public Command smartIntakeCommand() {
         return this.run(() -> intakeMotor.set(Constants.Intake.speed))
             .until(limitSwitch::get);
     } 
