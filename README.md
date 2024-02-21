@@ -47,7 +47,7 @@ Climber |   <   >     _____________     / . \___|___,- Turn
           \__   __              Home   __/  ___/
   Manual     \ |  |               \   |  | /
 Left Climber _##LB##_   Interrupt  \_##RB##_
-      \     /  ___   \_______\_____/\   Y   \
+      \     /  ___   \_______\_____/\   Y---\---- Amp Bar Up
 Manual \___/__/ . \           \      `X   B--\----- Manual Outake
 Amp Bar   /   \___/      o (X) o        A-----\-- Manual Intake   
   Up  `--/----^                          ___   \     __  Manual
