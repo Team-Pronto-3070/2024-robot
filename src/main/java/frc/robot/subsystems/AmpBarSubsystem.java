@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import java.util.Set;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.SparkPIDController;
@@ -13,14 +11,19 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class AmpBarSubsystem extends SubsystemBase {
     private final CANSparkMax ampBarMotor;
     private final SparkPIDController ampBarPID;
-    private TrapezoidProfile profile;
     private final SparkAbsoluteEncoder encoder;
+
+    private final TrapezoidProfile profile;
+    private TrapezoidProfile.State start;
+    private TrapezoidProfile.State goal;
+    private double t;
 
     public AmpBarSubsystem() {
         ampBarMotor = new CANSparkMax(Constants.AmpBar.motorID, MotorType.kBrushless);
@@ -45,7 +48,6 @@ public class AmpBarSubsystem extends SubsystemBase {
         ampBarMotor.burnFlash();
 
 
-        //profile = new TrapezoidProfile(new TrapezoidProfile.Constraints(1.75, 0.75));
         profile = new TrapezoidProfile(new TrapezoidProfile.Constraints(Constants.AmpBar.maxVelocity, Constants.AmpBar.maxAcceleration));
     }
 
@@ -57,46 +59,34 @@ public class AmpBarSubsystem extends SubsystemBase {
         ampBarMotor.set(speed);
     }
 
-    private double t;
     public Command homeCommand() {
-        return Commands.defer(() -> {
-            profile = new TrapezoidProfile(new TrapezoidProfile.Constraints(Constants.AmpBar.maxVelocity, Constants.AmpBar.maxAcceleration));
-
-            var start = getState();
-            t = 0;
-            return run(() -> {ampBarPID.setReference(profile.calculate(t, start,
-                    new TrapezoidProfile.State(Constants.AmpBar.homePosition, 0)).position, 
-                    CANSparkMax.ControlType.kPosition); t = t + 0.02;
-                SmartDashboard.putNumber("amp bar setpoint", profile.calculate(t, start,
-                    new TrapezoidProfile.State(Constants.AmpBar.homePosition, 0)).position);});}, Set.of(this))
-                ;//.until(() -> profile.isFinished(0.02));
-
-//        return run(() -> ampBarPID.setReference(profile.calculate(0.02, getState(),
-//                    new TrapezoidProfile.State(Constants.AmpBar.homePosition, 0)).position, 
-//                    CANSparkMax.ControlType.kPosition))
-//                ;//.until(() -> profile.isFinished(0.02));
+        return Commands.sequence(
+            new InstantCommand(() -> {
+                start = getState();
+                goal = new TrapezoidProfile.State(Constants.AmpBar.homePosition, 0);
+                t = 0;
+                profile.calculate(t, start, goal);
+            }),
+            run(() -> {
+                ampBarPID.setReference(profile.calculate(t, start, goal).position, CANSparkMax.ControlType.kPosition);
+                t += 0.02;
+            }).until(() -> profile.isFinished(t))
+        );
     }
 
     public Command upCommand() {
-        return Commands.defer(() -> {
-            profile = new TrapezoidProfile(new TrapezoidProfile.Constraints(Constants.AmpBar.maxVelocity, Constants.AmpBar.maxAcceleration));
-            
-            var start = getState();
-            var goal = new TrapezoidProfile.State(Constants.AmpBar.upPosition, 0);
-            t = 0;
-            return run(() -> {
+        return Commands.sequence(
+            new InstantCommand(() -> {
+                start = getState();
+                goal = new TrapezoidProfile.State(Constants.AmpBar.upPosition, 0);
+                t = 0;
+                profile.calculate(t, start, goal);
+            }),
+            run(() -> {
                 ampBarPID.setReference(profile.calculate(t, start, goal).position, CANSparkMax.ControlType.kPosition);
-                SmartDashboard.putNumber("amp bar setpoint", profile.calculate(t, start, goal).position);
-                SmartDashboard.putNumber("amp bar target velocity", profile.calculate(t, start, goal).velocity);
-                SmartDashboard.putNumber("amp bar start", start.position);
-                SmartDashboard.putNumber("amp bar t", t);
-                t = t + 0.02;
-            });
-        }, Set.of(this));
-//        return run(() -> ampBarPID.setReference(profile.calculate(0.02, getState(),
-//                    new TrapezoidProfile.State(Constants.AmpBar.upPosition, 0)).position, 
-//                    CANSparkMax.ControlType.kPosition))
-//                .until(() -> profile.isFinished(0.02));
+                t += 0.02;
+            }).until(() -> profile.isFinished(t))
+        );
     }
 
     public double getPosition() {
@@ -116,5 +106,9 @@ public class AmpBarSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("amp bar position", encoder.getPosition());
         SmartDashboard.putNumber("amp bar motor applied output", ampBarMotor.getAppliedOutput());
         SmartDashboard.putNumber("amp bar motor current", ampBarMotor.getOutputCurrent());
+        SmartDashboard.putNumber("amp bar setpoint", profile.calculate(t, start, goal).position);
+        SmartDashboard.putNumber("amp bar target velocity", profile.calculate(t, start, goal).velocity);
+        SmartDashboard.putNumber("amp bar start", start.position);
+        SmartDashboard.putNumber("amp bar t", t);
     }
 }
