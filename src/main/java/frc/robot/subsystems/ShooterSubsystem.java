@@ -76,8 +76,8 @@ public class ShooterSubsystem extends SubsystemBase {
     return Commands.sequence(
       Commands.waitUntil(new Trigger(this::atTarget).debounce(0.5)
                     .and(new Trigger(() -> (target != Target.AMP) || 
-                        MathUtil.isNear(Constants.AmpBar.upPosition, ampBar.getPosition(), Constants.AmpBar.tolerance)))
-                              .debounce(0.5)),
+                        MathUtil.isNear(Constants.AmpBar.upPosition, ampBar.getPosition(), Constants.AmpBar.tolerance))
+                              .debounce(0.5))),
       intake.run(() -> intake.set(0.2)).withTimeout(2),
       intake.runOnce(intake::stop),
       this.runOnce(this::stop),
