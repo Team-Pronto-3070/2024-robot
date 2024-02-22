@@ -1,0 +1,43 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7537171727538792,
+      "y": 6.731288263078758
+    },
+    "rotation": 59.20773169973986
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "launchNoteContinuous"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Speaker-A to amp note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp Note to speaker-a"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "launchNote"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

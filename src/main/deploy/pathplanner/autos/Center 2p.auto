@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "launchNoteContinuous"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Speaker-B to center note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Center note to speaker-b"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "launchNote"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

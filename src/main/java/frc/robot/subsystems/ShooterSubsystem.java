@@ -84,4 +84,13 @@ public class ShooterSubsystem extends SubsystemBase {
     );
   }
 
+  public Command fireContinuous(IntakeSubsystem intake) {
+    return Commands.sequence(
+      Commands.waitUntil(new Trigger(this::atTarget).debounce(0.5)
+                    .and(new Trigger(() -> true))), //TODO: make ampBar.atTarget()
+      intake.run(() -> intake.set(0.2)).withTimeout(2),
+      intake.runOnce(intake::stop)
+    );
+  }
+
 }
