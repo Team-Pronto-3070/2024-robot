@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.subsystems.AmpBarSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -17,10 +18,7 @@ import frc.robot.subsystems.SwerveSubsystem;
 public class Autos {
     private final SendableChooser<Command> autoChooser;
 
-    private static ShooterSubsystem shooter = new ShooterSubsystem();
-    private static IntakeSubsystem intake = new IntakeSubsystem();
-
-    public Autos(SwerveSubsystem swerve) {
+    public Autos(SwerveSubsystem swerve, ShooterSubsystem shooter, IntakeSubsystem intake, AmpBarSubsystem ampBar) {
         AutoBuilder.configureHolonomic(
             swerve::getPose,
             swerve::resetOdometry,
@@ -43,7 +41,7 @@ public class Autos {
 
        NamedCommands.registerCommand("launchNote", Commands.sequence(
                                     shooter.prepSpeakerCommand(),
-                                    shooter.fireCommand(intake)
+                                    shooter.fireCommand(intake, ampBar)
                                 ));
 
        NamedCommands.registerCommand("launchNoteContinuous", Commands.sequence(
