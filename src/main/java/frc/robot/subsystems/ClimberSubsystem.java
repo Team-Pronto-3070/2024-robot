@@ -91,11 +91,7 @@ public class ClimberSubsystem extends SubsystemBase {
    * @param roll in radians. positive roll is right side higher
    * @return
    */
-  public Command balancedClimbCommand(
-    DoubleSupplier roll,
-    BooleanSupplier enable,
-    BooleanSupplier limitSwitch
-  ) {
+  public Command balancedClimbCommand(DoubleSupplier roll) {
     // TODO positive roll is assumed to make the right side higher than the left
 
     return this.run(() -> {
@@ -111,7 +107,8 @@ public class ClimberSubsystem extends SubsystemBase {
             Constants.Climber.climbSpeed
           );
       })
-      .until(() -> (!enable.getAsBoolean()) && limitSwitch.getAsBoolean());
+      .until((new Trigger(() -> leftMotor.getOutputCurrent() > 35).debounce(0.5)))
+      .until((new Trigger(() -> rightMotor.getOutputCurrent() > 35).debounce(0.5)));
   }
 
   @Override
