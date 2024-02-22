@@ -38,6 +38,7 @@ public class OI {
 
 
   public final Trigger ampHomeButton;
+  public final Trigger ampUpButton;
   public final Trigger ampManualUpButton;
   public final Trigger ampManualDownButton;
   public final Trigger manualIntakeButton;
@@ -82,8 +83,8 @@ public class OI {
     // driveSlow = driver.rightTrigger();
     gyroResetButton = driver.x();
 
-    speakerPrepButton = driver.rightBumper();
-    ampPrepButton = driver.rightTrigger();
+    speakerPrepButton = driver.rightBumper().or(operator.rightBumper());
+    ampPrepButton = driver.rightTrigger().or(operator.rightTrigger());
     fireButton = driver.a();
 
     smartIntakeButton = driver.leftBumper();
@@ -91,9 +92,8 @@ public class OI {
     climberUpButton = driver.y();
     climberDownButton = driver.povDown();
 
-
-
     ampHomeButton = operator.x();
+    ampUpButton = operator.y();
     ampManualUpButton = operator.povUp();
     ampManualDownButton = operator.povDown();
     manualIntakeButton = operator.a();

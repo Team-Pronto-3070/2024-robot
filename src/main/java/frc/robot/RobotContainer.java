@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.subsystems.AmpBarSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -25,6 +26,7 @@ public class RobotContainer {
   private final ShooterSubsystem shooter = new ShooterSubsystem();
   private final IntakeSubsystem intake = new IntakeSubsystem();
   private final ClimberSubsystem climber = new ClimberSubsystem();
+  private final AmpBarSubsystem ampBar = new AmpBarSubsystem();
   private final Autos autos = new Autos(swerve);
 
   public RobotContainer() {
@@ -40,29 +42,31 @@ public class RobotContainer {
     shooter.setDefaultCommand(shooter.run(shooter::stop));
     intake.setDefaultCommand(intake.run(intake::stop));
     climber.setDefaultCommand(climber.run(climber::stop));
+    //ampBar.setDefaultCommand(ampBar.run(ampBar::stop));
 
     oi.interruptButton.onTrue(swerve.runOnce(swerve::stop))
                       .onTrue(intake.runOnce(intake::stop))
                       .onTrue(shooter.runOnce(shooter::stop))
-                      .onTrue(climber.runOnce(climber::stop));
+                      .onTrue(climber.runOnce(climber::stop))
+                      .onTrue(ampBar.runOnce(ampBar::stop));
 
     oi.gyroResetButton.onTrue(swerve.runOnce(swerve::resetGyro));
 
     oi.speakerPrepButton.onTrue(shooter.prepSpeakerCommand());
-    oi.ampPrepButton.onTrue(shooter.prepAmpCommand());
-    oi.fireButton.onTrue(shooter.fireCommand(intake));
+    oi.ampPrepButton.onTrue(shooter.prepAmpCommand(ampBar));
+    oi.fireButton.onTrue(shooter.fireCommand(intake, ampBar));
 
     oi.smartIntakeButton.whileTrue(intake.smartIntakeCommand());
 
     oi.climberUpButton.whileTrue(climber.upCommand());
-    oi.climberDownButton.whileTrue(climber.downCommand());
+    oi.climberDownButton.onTrue(climber.downCommand());
 
     
-    //TODO
-    //ampHomeButton
-    //ampManualUpButton
-    //ampManualDownButton
-    oi.manualIntakeButton.whileTrue(intake.run(() -> intake.set(0.2)));
+    oi.ampHomeButton.onTrue(ampBar.homeCommand());
+    oi.ampUpButton.onTrue(ampBar.upCommand());
+    oi.ampManualDownButton.whileTrue(ampBar.run(() -> ampBar.set(0.4)));
+    oi.ampManualUpButton.whileTrue(ampBar.run(() -> ampBar.set(-0.4)));
+    oi.manualIntakeButton.whileTrue(intake.run(() -> intake.set(1)));
     oi.manualOuttakeButton.whileTrue(intake.run(() -> intake.set(-0.2)));
     oi.climberManualOverrideButton.and(() -> Math.abs(oi.climberLeftSpeed.getAsDouble()) > Constants.OI.deadband)
             .whileTrue(climber.run(() -> climber.setLeftSpeed(

@@ -4,8 +4,10 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
@@ -28,10 +30,15 @@ public class ClimberSubsystem extends SubsystemBase {
 
     leftMotor.restoreFactoryDefaults();
     rightMotor.restoreFactoryDefaults();
+
+    leftMotor.setInverted(true);
+
     leftMotor.setIdleMode(Constants.Climber.idleMode);
     rightMotor.setIdleMode(Constants.Climber.idleMode);
     leftMotor.setSmartCurrentLimit(Constants.Climber.currentLimit);
     rightMotor.setSmartCurrentLimit(Constants.Climber.currentLimit);
+    leftMotor.burnFlash();
+    rightMotor.burnFlash();
 
     leftLimitSwitch = new DigitalInput(Constants.Climber.leftLimitSwitchPort);
     rightLimitSwitch = new DigitalInput(Constants.Climber.rightLimitSwitchPort);
@@ -72,9 +79,11 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public Command downCommand() {
-    return run(() -> setBothSpeed(-0.2))
-          .until(leftLimitSwitch::get)
-          .until(rightLimitSwitch::get);
+    return run(() -> setBothSpeed(-0.4))
+          //.until(leftLimitSwitch::get)
+          //.until(rightLimitSwitch::get)
+          .until(new Trigger(() -> leftMotor.getOutputCurrent() > 35).debounce(0.5))
+          .until(new Trigger(() -> rightMotor.getOutputCurrent() > 35).debounce(0.5));
   }
 
   /**
@@ -103,5 +112,11 @@ public class ClimberSubsystem extends SubsystemBase {
           );
       })
       .until(() -> (!enable.getAsBoolean()) && limitSwitch.getAsBoolean());
+  }
+
+  @Override
+  public void periodic() {
+    SmartDashboard.putNumber("left climber current", leftMotor.getOutputCurrent());
+    SmartDashboard.putNumber("right climber current", rightMotor.getOutputCurrent());
   }
 }

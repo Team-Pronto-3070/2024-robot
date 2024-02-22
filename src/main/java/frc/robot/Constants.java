@@ -21,7 +21,7 @@ public final class Constants {
     public static final double gearRatio =
       (45.0 * 22) / (drivingMotorPinionTeeth * 15);
 
-    public static final double maxSpeed = Units.feetToMeters(15.87); // meters per second
+    public static final double maxSpeed = Units.feetToMeters(15.87 * (14.0 / 13.0)); // meters per second
     public static final double maxAcceleration = 1.19 * 9.81; // traction limited: COF*g (TODO: this COF is for blue nitrile on carpet)
     // public static final double maxAngularSpeed = 10.0 * maxSpeed / Math.hypot(wheelBase / 2.0, trackWidth / 2.0);
     public static final double maxAngularSpeed = 1.0 * maxSpeed / Math.hypot(wheelBase / 2.0, trackWidth / 2.0);
@@ -81,7 +81,7 @@ public final class Constants {
       public static final double openLoopRamp = 0.25;
       public static final double closedLoopRamp = 0.0;
 
-      public static final InvertedValue motorInvert = InvertedValue.Clockwise_Positive; // TODO: Is clockwise or counter clockwise correct?
+      public static final InvertedValue motorInvert = InvertedValue.CounterClockwise_Positive;
       public static final NeutralModeValue neutralMode = NeutralModeValue.Brake;
     }
 
@@ -114,7 +114,7 @@ public final class Constants {
   public static final class OI {
     public static final int driverPort = 0;
     public static final int operatorPort = 1;
-    public static final double deadband = 0.20;
+    public static final double deadband = 0.04;
     public static final double triggerDeadband = 0.5;
 
     public static final double slowSpeed = 0.5;
@@ -132,26 +132,26 @@ public final class Constants {
       public static final int currentLimit = 30;
       public static final double closedLoopRampTime = 0.5; //seconds
 
-      public static final double ampSpeed = 1000.0; // Motor speed in RPM
+      public static final double ampSpeed = 1200.0; // Motor speed in RPM
       public static final double speakerSpeed = 3000.0; // Motor speed in RPM
       public static final double rightMod = 1.0;
       public static final double RPMtolerance = 200;
 
       public static final class PID {
-        public static final double P = 1.0;
+        public static final double P = 0.001;
         public static final double I = 0.0;
         public static final double D = 0.0;
-        public static final double F = 0.0;
+        public static final double F = 0.000185;
       }
     }
   }
 
   public static final class Intake {
-      public static final double speed = 0.2;
+      public static final double speed = 1;
       public static final int limitSwitchPort = 0;
       public static final int motorID = 13;
       public static final IdleMode idleMode = IdleMode.kBrake;
-      public static final int currentLimit = 20;
+      public static final int currentLimit = 30;
   }
 
   public static final class Climber {
@@ -168,6 +168,32 @@ public final class Constants {
       public static final double balanceAdjustQuotient = 0.5; // TODO
 
   }
+
+  public static final class AmpBar {
+    public static final int motorID = 14;
+    public static final int currentLimit = 40;
+
+    
+    public static final class PID {
+      
+      public static final double P = 3.0;
+      public static final double I = 0.0;
+      public static final double D = 0.0;
+      public static final double F = 0.0;
+    }
+
+    public static final float forwardSoftLimit = 0.400f;
+    public static final float reverseSoftLimit = 0.0428f;
+    //public static final double upPosition = 0.077;
+    public static final double upPosition = 0.0682;
+    public static final double homePosition = 0.395;
+    public static final double tolerance = 0.10;
+
+    public static final double maxVelocity = 1.5;
+    public static final double maxAcceleration = 1.5;
+  }
+
+
   public static final class Autos {
     public static final PIDConstants translationPID = new PIDConstants(1, 0, 0);
     public static final PIDConstants rotationPID = new PIDConstants(1, 0, 0);

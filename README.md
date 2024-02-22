@@ -47,7 +47,7 @@ Climber |   <   >     _____________     / . \___|___,- Turn
           \__   __              Home   __/  ___/
   Manual     \ |  |               \   |  | /
 Left Climber _##LB##_   Interrupt  \_##RB##_
-      \     /  ___   \_______\_____/\   Y   \
+      \     /  ___   \_______\_____/\   Y---\---- Amp Bar Up
 Manual \___/__/ . \           \      `X   B--\----- Manual Outake
 Amp Bar   /   \___/      o (X) o        A-----\-- Manual Intake   
   Up  `--/----^                          ___   \     __  Manual
@@ -66,7 +66,7 @@ Down     \__________/               \__________/
 | RB | Speaker Shot Wind Up |
 | RS | Manual Right Climer (with override) |
 | X  | Amp Bar Home |
-| Y  | |
+| Y  | Amp Bar Up |
 | A  | Manual Intake |
 | B  | Manual Outake |
 | DU | Manual Amp Bar Up |
