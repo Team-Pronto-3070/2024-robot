@@ -27,7 +27,7 @@ public class RobotContainer {
   private final IntakeSubsystem intake = new IntakeSubsystem();
   private final ClimberSubsystem climber = new ClimberSubsystem();
   private final AmpBarSubsystem ampBar = new AmpBarSubsystem();
-  private final Autos autos = new Autos(swerve);
+  private final Autos autos = new Autos(swerve, shooter, intake, ampBar);
 
   public RobotContainer() {
     DataLogManager.start();
