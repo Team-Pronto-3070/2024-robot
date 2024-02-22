@@ -37,7 +37,7 @@ public class RobotContainer {
     shooter.setDefaultCommand(shooter.run(shooter::stop));
     intake.setDefaultCommand(intake.run(intake::stop));
     climber.setDefaultCommand(climber.run(climber::stop));
-    ampBar.setDefaultCommand(ampBar.run(ampBar::stop));
+    //ampBar.setDefaultCommand(ampBar.run(ampBar::stop));
 
     oi.interruptButton.onTrue(swerve.runOnce(swerve::stop))
                       .onTrue(intake.runOnce(intake::stop))

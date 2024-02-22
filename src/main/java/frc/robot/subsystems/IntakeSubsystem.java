@@ -35,7 +35,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public Command smartIntakeCommand() {
         return this.run(() -> intakeMotor.set(Constants.Intake.speed))
-            .until(limitSwitch::get);
+            ;//.until(limitSwitch::get);
     } 
 
     @Override

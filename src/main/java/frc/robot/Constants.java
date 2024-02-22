@@ -21,7 +21,7 @@ public final class Constants {
     public static final double gearRatio =
       (45.0 * 22) / (drivingMotorPinionTeeth * 15);
 
-    public static final double maxSpeed = Units.feetToMeters(15.87); // meters per second
+    public static final double maxSpeed = Units.feetToMeters(15.87 * (14.0 / 13.0)); // meters per second
     public static final double maxAcceleration = 1.19 * 9.81; // traction limited: COF*g (TODO: this COF is for blue nitrile on carpet)
     // public static final double maxAngularSpeed = 10.0 * maxSpeed / Math.hypot(wheelBase / 2.0, trackWidth / 2.0);
     public static final double maxAngularSpeed = 1.0 * maxSpeed / Math.hypot(wheelBase / 2.0, trackWidth / 2.0);
@@ -138,16 +138,16 @@ public final class Constants {
       public static final double RPMtolerance = 200;
 
       public static final class PID {
-        public static final double P = 0.1;
+        public static final double P = 0.001;
         public static final double I = 0.0;
         public static final double D = 0.0;
-        public static final double F = 0.0;
+        public static final double F = 0.000185;
       }
     }
   }
 
   public static final class Intake {
-      public static final double speed = 0.2;
+      public static final double speed = 1;
       public static final int limitSwitchPort = 0;
       public static final int motorID = 13;
       public static final IdleMode idleMode = IdleMode.kBrake;
@@ -183,8 +183,9 @@ public final class Constants {
     }
 
     public static final float forwardSoftLimit = 0.400f;
-    public static final float reverseSoftLimit = 0.072f;
-    public static final double upPosition = 0.077;
+    public static final float reverseSoftLimit = 0.0428f;
+    //public static final double upPosition = 0.077;
+    public static final double upPosition = 0.0682;
     public static final double homePosition = 0.395;
     public static final double tolerance = 0.10;
 

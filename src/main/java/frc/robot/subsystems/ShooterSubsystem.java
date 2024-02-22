@@ -34,10 +34,10 @@ public class ShooterSubsystem extends SubsystemBase {
   public boolean atTarget() {
     if (target == Target.SPEAKER) {
       return MathUtil.isNear(speakerRPM, motorLeft.getRPM(), Constants.Shooter.Motor.RPMtolerance)
-          && MathUtil.isNear(speakerRPM, motorRight.getRPM(), Constants.Shooter.Motor.RPMtolerance);
+          && MathUtil.isNear(speakerRPM * -rightMod, motorRight.getRPM(), Constants.Shooter.Motor.RPMtolerance);
     } else if (target == Target.AMP) {
       return MathUtil.isNear(ampRPM, motorLeft.getRPM(), Constants.Shooter.Motor.RPMtolerance)
-          && MathUtil.isNear(ampRPM, motorRight.getRPM(), Constants.Shooter.Motor.RPMtolerance);
+          && MathUtil.isNear(ampRPM * -rightMod, motorRight.getRPM(), Constants.Shooter.Motor.RPMtolerance);
     }
     return false;
   }
@@ -78,6 +78,7 @@ public class ShooterSubsystem extends SubsystemBase {
                     .and(new Trigger(() -> (target != Target.AMP) || 
                         MathUtil.isNear(Constants.AmpBar.upPosition, ampBar.getPosition(), Constants.AmpBar.tolerance))
                               .debounce(0.5))),
+      Commands.print("fire command at target"),
       intake.run(() -> intake.set(0.2)).withTimeout(2),
       intake.runOnce(intake::stop),
       this.runOnce(this::stop),
@@ -91,6 +92,11 @@ public class ShooterSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("left shooter RPM", motorLeft.getRPM());
     SmartDashboard.putNumber("right shooter RPM", motorRight.getRPM());
+    SmartDashboard.putNumber("left shooter applied output", motorLeft.getAppliedOutput());
+    SmartDashboard.putNumber("left shooter current", motorLeft.getCurrent());
+    SmartDashboard.putNumber("right shooter applied output", motorRight.getAppliedOutput());
+    SmartDashboard.putNumber("right shooter current", motorRight.getCurrent());
     SmartDashboard.putString("shooter target", "" + target);
+    SmartDashboard.putBoolean("shooter at target", atTarget());
   }
 }

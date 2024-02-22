@@ -7,6 +7,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -49,6 +50,9 @@ public class AmpBarSubsystem extends SubsystemBase {
 
 
         profile = new TrapezoidProfile(new TrapezoidProfile.Constraints(Constants.AmpBar.maxVelocity, Constants.AmpBar.maxAcceleration));
+        start = getState();
+        goal = getState();
+        t = 0;
     }
 
     public void stop() {
@@ -70,7 +74,7 @@ public class AmpBarSubsystem extends SubsystemBase {
             run(() -> {
                 ampBarPID.setReference(profile.calculate(t, start, goal).position, CANSparkMax.ControlType.kPosition);
                 t += 0.02;
-            }).until(() -> profile.isFinished(t))
+            }).until(() -> profile.isFinished(t - 1))
         );
     }
 
@@ -85,7 +89,7 @@ public class AmpBarSubsystem extends SubsystemBase {
             run(() -> {
                 ampBarPID.setReference(profile.calculate(t, start, goal).position, CANSparkMax.ControlType.kPosition);
                 t += 0.02;
-            }).until(() -> profile.isFinished(t))
+            }).until(() -> profile.isFinished(t - 5))
         );
     }
 
@@ -110,5 +114,6 @@ public class AmpBarSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("amp bar target velocity", profile.calculate(t, start, goal).velocity);
         SmartDashboard.putNumber("amp bar start", start.position);
         SmartDashboard.putNumber("amp bar t", t);
+        SmartDashboard.putBoolean("amp bar at target", MathUtil.isNear(Constants.AmpBar.upPosition, getPosition(), Constants.AmpBar.tolerance));
     }
 }

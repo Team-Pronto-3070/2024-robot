@@ -46,6 +46,14 @@ public class ShooterModule {
     return shooterEncoder.getVelocity();
   }
 
+  public double getAppliedOutput() {
+    return shooterMotor.getAppliedOutput();
+  }
+
+  public double getCurrent() {
+    return shooterMotor.getOutputCurrent();
+  }
+
   public void stop() {
     shooterMotor.set(0);
   }
