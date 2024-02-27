@@ -75,7 +75,7 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public Command upCommand() {
-    return run(() -> setBothSpeed(0.2));
+    return run(() -> setBothSpeed(0.6));
   }
 
   public Command downCommand() {
