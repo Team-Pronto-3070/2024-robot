@@ -97,6 +97,11 @@ public class ShooterSubsystem extends SubsystemBase {
     );
   }
 
+  public void set(double speed) {
+    motorLeft.setRPM(speed);
+    motorRight.setRPM(speed);
+  }
+
   @Override
   public void periodic() {
     SmartDashboard.putNumber("left shooter RPM", motorLeft.getRPM());
