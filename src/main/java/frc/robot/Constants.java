@@ -148,7 +148,8 @@ public final class Constants {
 
   public static final class Intake {
       public static final double speed = 1;
-      public static final int limitSwitchPort = 0;
+      public static final int leftBeamBreakPort = 0;
+      public static final int rightBeamBreakPort = 2;
       public static final int motorID = 13;
       public static final IdleMode idleMode = IdleMode.kBrake;
       public static final int currentLimit = 30;
@@ -157,8 +158,8 @@ public final class Constants {
   public static final class Climber {
       public static final int leftID = 11;
       public static final int rightID = 12;
-      public static final int leftLimitSwitchPort = 1;
-      public static final int rightLimitSwitchPort = 2;
+      public static final int leftLimitSwitchPort = 4;
+      public static final int rightLimitSwitchPort = 5;
       public static final IdleMode idleMode = IdleMode.kBrake;
       public static final int currentLimit = 40;
 
