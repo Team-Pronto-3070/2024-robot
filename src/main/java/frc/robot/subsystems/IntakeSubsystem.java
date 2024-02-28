@@ -2,6 +2,9 @@ package frc.robot.subsystems;
 //need to import the motor
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
+
+import java.util.Set;
+
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -43,26 +46,32 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public Command smartIntakeCommand() {
-        return this.run(() -> intakeMotor.set(Constants.Intake.speed))
+        return this.run(() -> intakeMotor.set(hasNote() ? 0 : Constants.Intake.speed))
             .until(this::hasNote);
     } 
 
     public Command smartIntakeCommand2() {
         return Commands.sequence(
-            this.run(() -> intakeMotor.set(Constants.Intake.speed)).until(new Trigger(() -> hasNote()).debounce(0.04)),
-            this.run(() -> intakeMotor.set(-0.2)).until(new Trigger(() -> hasNote()).debounce(0.10)),
-            this.run(() -> intakeMotor.set(-0.2)).until(new Trigger(() -> !hasNote()).debounce(0.10)),
-            this.run(() -> intakeMotor.set(0.2)).until(new Trigger(() -> hasNote()).debounce(0.20))
+            this.run(() -> intakeMotor.set(1)).until(new Trigger(() -> hasNote())),
+            new ScheduleCommand(Commands.sequence(
+                Commands.defer(() -> this.run(() -> intakeMotor.set(-0.15)).until(new Trigger(() -> hasNote()).debounce(0.08)), Set.of(this)),
+                Commands.defer(() -> this.run(() -> intakeMotor.set(-0.2)).until(new Trigger(() -> !hasNote()).debounce(0.04)), Set.of(this)),
+                Commands.defer(() -> this.run(() -> intakeMotor.set(0.1)).until(new Trigger(() -> hasNote()).debounce(0.04)), Set.of(this))
+            ))
         );
     } 
 
     public Command smartIntakeCommand3() {
         return Commands.sequence(
             this.run(() -> intakeMotor.set(Constants.Intake.speed)).until(new Trigger(() -> hasNote()).debounce(0.02)),
-            new ScheduleCommand(this.run(() -> intakeMotor.set(-0.2)).withTimeout(0.2))
+            backOffCommand()
             //this.run(() -> intakeMotor.set(-0.2)).withTimeout(0.2)
         );
     } 
+
+    public Command backOffCommand() {
+        return new ScheduleCommand(this.run(() -> intakeMotor.set(-0.2)).withTimeout(0.2));
+    }
 
     @Override
     public void periodic() {
