@@ -115,9 +115,9 @@ public final class Constants {
     public static final int driverPort = 0;
     public static final int operatorPort = 1;
     public static final double deadband = 0.04;
-    public static final double triggerDeadband = 0.5;
+    public static final double triggerDeadband = 0.3;
 
-    public static final double slowSpeed = 0.5;
+    public static final double slowSpeed = 0.3;
   }
 
   public static final class Shooter {

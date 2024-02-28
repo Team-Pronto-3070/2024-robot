@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
@@ -47,10 +49,18 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public Command smartIntakeCommand2() {
         return Commands.sequence(
-            this.run(() -> intakeMotor.set(Constants.Intake.speed)).until(() -> hasNote()),
-            this.run(() -> intakeMotor.set(-0.2)).until(() -> hasNote()),
-            this.run(() -> intakeMotor.set(-0.2)).until(() -> !hasNote()),
-            this.run(() -> intakeMotor.set(0.2)).until(() -> hasNote())
+            this.run(() -> intakeMotor.set(Constants.Intake.speed)).until(new Trigger(() -> hasNote()).debounce(0.04)),
+            this.run(() -> intakeMotor.set(-0.2)).until(new Trigger(() -> hasNote()).debounce(0.10)),
+            this.run(() -> intakeMotor.set(-0.2)).until(new Trigger(() -> !hasNote()).debounce(0.10)),
+            this.run(() -> intakeMotor.set(0.2)).until(new Trigger(() -> hasNote()).debounce(0.20))
+        );
+    } 
+
+    public Command smartIntakeCommand3() {
+        return Commands.sequence(
+            this.run(() -> intakeMotor.set(Constants.Intake.speed)).until(new Trigger(() -> hasNote()).debounce(0.02)),
+            new ScheduleCommand(this.run(() -> intakeMotor.set(-0.2)).withTimeout(0.2))
+            //this.run(() -> intakeMotor.set(-0.2)).withTimeout(0.2)
         );
     } 
 
@@ -60,5 +70,6 @@ public class IntakeSubsystem extends SubsystemBase {
         SmartDashboard.putBoolean("intake right beam break", rightBeamBreak.get());
         SmartDashboard.putBoolean("intake has note", hasNote());
         SmartDashboard.putNumber("intake current", intakeMotor.getOutputCurrent());
+        SmartDashboard.putNumber("intake applied output", intakeMotor.getAppliedOutput());
     }
 }

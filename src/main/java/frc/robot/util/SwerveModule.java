@@ -35,9 +35,10 @@ public class SwerveModule {
     driveMotor = new TalonFX(driveMotorID);
 
     var talonFXConfigurator = driveMotor.getConfigurator();
-    var motorConfigs = new MotorOutputConfigs();
 
+    var motorConfigs = new MotorOutputConfigs();
     motorConfigs.Inverted = Constants.Swerve.Drive.motorInvert;
+    motorConfigs.NeutralMode = Constants.Swerve.Drive.neutralMode;
     talonFXConfigurator.apply(motorConfigs);
 
     // set slot 0 gains
@@ -47,7 +48,6 @@ public class SwerveModule {
     slot0Configs.kI = Constants.Swerve.Drive.PID.I;
     slot0Configs.kD = Constants.Swerve.Drive.PID.D;
 
-    motorConfigs.NeutralMode = Constants.Swerve.Drive.neutralMode;
 
     // apply gains, 50 ms total timeout
     talonFXConfigurator.apply(slot0Configs, 0.050);
@@ -57,7 +57,6 @@ public class SwerveModule {
     currentLimitsConfig.SupplyCurrentLimit = Constants.Swerve.Drive.continuousCurrentLimit;
     currentLimitsConfig.SupplyTimeThreshold = Constants.Swerve.Drive.peakCurrentDuration;
     currentLimitsConfig.SupplyCurrentThreshold = Constants.Swerve.Drive.peakCurrentLimit;
-
     talonFXConfigurator.apply(currentLimitsConfig);
 
     var OpenLoopRampsConfigs = new OpenLoopRampsConfigs();
