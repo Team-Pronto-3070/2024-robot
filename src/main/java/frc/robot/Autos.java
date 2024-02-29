@@ -27,7 +27,7 @@ public class Autos {
             new HolonomicPathFollowerConfig(
                 Constants.Autos.translationPID,
                 Constants.Autos.rotationPID,
-                Constants.Autos.maxSpeed,
+                Constants.Autos.maxModuleSpeed,
                 Constants.Autos.driveBaseRadius,
                 new ReplanningConfig()),
             () -> {
@@ -39,7 +39,7 @@ public class Autos {
             swerve
         );
 
-        NamedCommands.registerCommand("intake", intake.smartIntakeCommand());
+        NamedCommands.registerCommand("intake", intake.smartIntakeCommand2());
 
         NamedCommands.registerCommand("launchNote", Commands.sequence(
                                     shooter.prepSpeakerCommand(),
@@ -53,7 +53,7 @@ public class Autos {
        NamedCommands.registerCommand("stopIntake", intake.run(intake::stop));
        NamedCommands.registerCommand("stopShooter", shooter.run(shooter::stop));
 
-       NamedCommands.registerCommand("defensiveIntake", Commands.run(() -> intake.set(10000)));
+       NamedCommands.registerCommand("defensiveIntake", Commands.run(() -> intake.set(1)));
        NamedCommands.registerCommand("defensiveShooter", Commands.run(() -> shooter.set(300)));
 
         // ...

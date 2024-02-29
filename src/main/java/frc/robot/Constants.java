@@ -11,8 +11,8 @@ public final class Constants {
   public static final class Swerve {
     public static final IdleMode idleMode = IdleMode.kBrake;
 
-    public static final double wheelBase = Units.inchesToMeters(18.0 - 3.5); // distance between front and back // wheels
-    public static final double trackWidth = Units.inchesToMeters(18.0 - 3.5); // distance between left and right // wheels
+    public static final double wheelBase = Units.inchesToMeters(24.0 - 3.5); // distance between front and back // wheels
+    public static final double trackWidth = Units.inchesToMeters(26.0 - 3.5); // distance between left and right // wheels
     public static final double wheelCircumference = Units.inchesToMeters(3) * Math.PI;
 
     // The MAXSwerve module can be configured with one of three pinion gears: 12T, 13T, or 14T.
@@ -196,11 +196,11 @@ public final class Constants {
 
 
   public static final class Autos {
-    public static final PIDConstants translationPID = new PIDConstants(1, 0, 0);
-    public static final PIDConstants rotationPID = new PIDConstants(1, 0, 0);
+    public static final PIDConstants translationPID = new PIDConstants(2, 0, 0);
+    public static final PIDConstants rotationPID = new PIDConstants(1.5, 0, 0);
 
     // TODO fill out
-    public static final double maxSpeed = 0.0; // in meters per second
-    public static final double driveBaseRadius = 0.0; // in meters
+    public static final double maxModuleSpeed = Swerve.maxSpeed; // in meters per second
+    public static final double driveBaseRadius = Math.hypot(Swerve.trackWidth, Swerve.wheelBase); // in meters
   }
 }
