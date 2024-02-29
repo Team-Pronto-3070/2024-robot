@@ -55,7 +55,7 @@ public class RobotContainer {
     oi.ampPrepButton.onTrue(shooter.prepAmpCommand(ampBar));
     oi.fireButton.onTrue(shooter.fireCommand(intake, ampBar));
 
-    oi.smartIntakeButton.whileTrue(intake.smartIntakeCommand());
+    oi.smartIntakeButton.whileTrue(intake.smartIntakeCommand2());
 
     oi.climberUpButton.whileTrue(climber.upCommand());
     oi.climberDownButton.onTrue(climber.downCommand());

@@ -78,7 +78,7 @@ public class OI {
     processed_drive_rot = () -> Math.pow( MathUtil.applyDeadband(drive_rot.getAsDouble(), Constants.OI.deadband), 3)
                             * Constants.Swerve.maxAngularSpeed * (driveFast.getAsBoolean() ? 
                                       Constants.OI.slowSpeed + MathUtil.applyDeadband(driveBoost.getAsDouble(), Constants.OI.triggerDeadband, 1 - Constants.OI.slowSpeed)
-                                      : Constants.OI.slowSpeed);
+                                      : Constants.OI.slowSpeed) * 0.75;
 
     // driveSlow = driver.rightTrigger();
     gyroResetButton = driver.x();
