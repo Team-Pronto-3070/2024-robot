@@ -14,19 +14,39 @@
         {
           "type": "named",
           "data": {
-            "name": "launchNoteContinuous"
+            "name": "launchNote"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Speaker-B to center note"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Center note to speaker-b"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Speaker-B to center note"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Center note to speaker-b"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {

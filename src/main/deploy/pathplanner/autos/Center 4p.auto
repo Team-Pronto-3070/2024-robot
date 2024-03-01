@@ -14,55 +14,115 @@
         {
           "type": "named",
           "data": {
-            "name": "launchNoteContinuous"
+            "name": "launchNote"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Speaker-B to center note"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Center note to speaker-b"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Speaker-B to center note"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Center note to speaker-b"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "launchNoteContinuous"
+            "name": "launchNote"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Speaker-B to Amp Note"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Amp note to speaker-B"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Speaker-B to Amp Note"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Amp note to speaker-B"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "launchNoteContinuous"
+            "name": "launchNote"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Speaker-B to Source note"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Source Note to Speaker-B"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Speaker-B to Source note"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Source Note to Speaker-B"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {

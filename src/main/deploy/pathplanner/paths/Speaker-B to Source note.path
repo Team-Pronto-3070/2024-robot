@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3927838132071064,
-        "y": 5.532694447390499
+        "x": 1.377829248985321,
+        "y": 5.551890222549045
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0839413875969854,
-        "y": 3.8720364274573416
+        "x": 2.0689868233752,
+        "y": 3.8912322026158876
       },
       "isLocked": false,
       "linkedName": "Center Launch"
@@ -37,21 +37,14 @@
       "command": {
         "type": "parallel",
         "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intake"
-              }
-            }
-          ]
+          "commands": []
         }
       }
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

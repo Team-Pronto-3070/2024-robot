@@ -39,16 +39,17 @@ public class Autos {
             swerve
         );
 
-        NamedCommands.registerCommand("intake", intake.smartIntakeCommand2());
+        NamedCommands.registerCommand("intake", intake.autoSmartIntakeCommand2());
 
+        NamedCommands.registerCommand("prepShooter", shooter.prepSpeakerCommandOnce());
         NamedCommands.registerCommand("launchNote", Commands.sequence(
-                                    shooter.prepSpeakerCommand(),
-                                    shooter.fireCommand(intake, ampBar)
+                                    shooter.prepSpeakerCommandOnce(),
+                                    shooter.autoFireCommand(intake, ampBar)
                                 ));
-        NamedCommands.registerCommand("launchNoteContinuous", Commands.sequence(
-                                    shooter.prepSpeakerCommand(),
-                                    shooter.fireContinuous(intake)
-                                ));
+        //NamedCommands.registerCommand("launchNoteContinuous", Commands.sequence(
+        //                            shooter.prepSpeakerCommandOnce(),
+        //                            shooter.fireContinuous(intake)
+        //                        ));
 
        NamedCommands.registerCommand("stopIntake", intake.run(intake::stop));
        NamedCommands.registerCommand("stopShooter", shooter.run(shooter::stop));

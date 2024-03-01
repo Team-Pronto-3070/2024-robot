@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7012844631306118,
-        "y": 6.738843759245798
+        "x": 0.7637295103016023,
+        "y": 6.676178623549525
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7386223123668696,
-        "y": 7.373926647256459
+        "x": 1.8010673595378601,
+        "y": 7.311261511560186
       },
       "isLocked": false,
       "linkedName": "Amp Launch"
@@ -72,8 +72,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

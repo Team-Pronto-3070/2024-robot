@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.3927838132071064,
-        "y": 5.532694447390499
+        "x": 1.377829248985321,
+        "y": 5.551890222549045
       },
       "prevControl": {
-        "x": 1.773887554086434,
-        "y": 5.871132000602566
+        "x": 1.7589329898646486,
+        "y": 5.890327775761112
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,10 +30,28 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "prepShooter",
+      "waypointRelativePos": 0.5,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "prepShooter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
