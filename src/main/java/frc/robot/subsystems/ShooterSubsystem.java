@@ -93,7 +93,7 @@ public class ShooterSubsystem extends SubsystemBase {
                         MathUtil.isNear(Constants.AmpBar.upPosition, ampBar.getPosition(), Constants.AmpBar.tolerance))
                               .debounce(0.5))), Set.of()),
       Commands.print("fire command at target"),
-      intake.run(() -> intake.set(0.2)).withTimeout(2),
+      intake.run(() -> intake.set(0.2)).withTimeout(1),
       intake.runOnce(intake::stop),
       this.runOnce(this::stop),
       Commands.either(ampBar.homeCommand(), Commands.none(), () -> target == Target.AMP),
@@ -103,9 +103,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public Command autoFireCommand(IntakeSubsystem intake, AmpBarSubsystem ampBar) {
     return Commands.sequence(
-      Commands.defer(() -> Commands.waitUntil(new Trigger(this::atTarget).debounce(0.5)), Set.of()),
+      Commands.defer(() -> Commands.waitUntil(new Trigger(this::atTarget).debounce(0.2)), Set.of()),
       Commands.print("fire command at target"),
-      intake.run(() -> intake.set(0.2)).withTimeout(0.5),
+      intake.run(() -> intake.set(0.2)).withTimeout(0.2),
       intake.runOnce(intake::stop),
       this.runOnce(this::stop),
       Commands.either(ampBar.homeCommand(), Commands.none(), () -> target == Target.AMP),

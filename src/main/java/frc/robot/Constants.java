@@ -197,7 +197,7 @@ public final class Constants {
 
   public static final class Autos {
     public static final PIDConstants translationPID = new PIDConstants(2, 0, 0);
-    public static final PIDConstants rotationPID = new PIDConstants(1.5, 0, 0);
+    public static final PIDConstants rotationPID = new PIDConstants(2, 0, 0);
 
     // TODO fill out
     public static final double maxModuleSpeed = Swerve.maxSpeed; // in meters per second

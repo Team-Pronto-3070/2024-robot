@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0689868233752,
-        "y": 3.8912322026158876
+        "x": 1.9866663932350432,
+        "y": 4.609894457150277
       },
       "isLocked": false,
       "linkedName": "Center Launch"
     },
     {
       "anchor": {
-        "x": 2.53683661397169,
-        "y": 4.081457038791822
+        "x": 2.541030502120935,
+        "y": 4.256330512928418
       },
       "prevControl": {
-        "x": 1.6226480565376264,
-        "y": 4.170260878610601
+        "x": 2.1592484679538684,
+        "y": 4.5197167541828
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Source Note"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -43,14 +43,14 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 3.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -20.47389887915189,
     "rotateFast": false
   },
   "reversed": false,

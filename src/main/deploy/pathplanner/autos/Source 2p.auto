@@ -14,19 +14,52 @@
         {
           "type": "named",
           "data": {
-            "name": "launchNoteContinuous"
+            "name": "launchNote"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Speaker-C to source note"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Source note to speaker-C"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "intake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "prepShooter"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Speaker-C to source note"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Source note to speaker-C"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
