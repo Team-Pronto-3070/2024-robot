@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -60,17 +59,6 @@ public class IntakeSubsystem extends SubsystemBase {
                 Commands.defer(() -> this.run(() -> intakeMotor.set(0.1)).until(new Trigger(() -> hasNote()).debounce(0.04)), Set.of(this))
             ))
         );
-    } 
-
-    public Command autoSmartIntakeCommand2() {
-        return Commands.sequence(
-            new InstantCommand(() -> SmartDashboard.putBoolean("intake command running", true)),
-            this.run(() -> intakeMotor.set(1)).until(new Trigger(() -> hasNote())),
-            Commands.defer(() -> this.run(() -> intakeMotor.set(-0.1)).until(new Trigger(() -> hasNote()).debounce(0.04)), Set.of(this)),
-            Commands.defer(() -> this.run(() -> intakeMotor.set(-0.12)).until(new Trigger(() -> !hasNote()).debounce(0.08)), Set.of(this)),
-            Commands.defer(() -> this.run(() -> intakeMotor.set(0.1)).until(new Trigger(() -> hasNote()).debounce(0.04)), Set.of(this)),
-            runOnce(this::stop)
-        ).finallyDo(() -> SmartDashboard.putBoolean("intake command running", false));
     } 
 
     public Command smartIntakeCommand3() {

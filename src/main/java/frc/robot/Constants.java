@@ -22,7 +22,7 @@ public final class Constants {
       (45.0 * 22) / (drivingMotorPinionTeeth * 15);
 
     public static final double maxSpeed = Units.feetToMeters(15.87 * (14.0 / 13.0)); // meters per second
-    public static final double maxAcceleration = 1.19 * 9.81; // traction limited: COF*g (TODO: this COF is for blue nitrile on carpet)
+    public static final double maxAcceleration = 1.19 * 9.81; // traction limited: COF*g (this COF is for blue nitrile on carpet)
     // public static final double maxAngularSpeed = 10.0 * maxSpeed / Math.hypot(wheelBase / 2.0, trackWidth / 2.0);
     public static final double maxAngularSpeed = 1.0 * maxSpeed / Math.hypot(wheelBase / 2.0, trackWidth / 2.0);
 
@@ -199,7 +199,6 @@ public final class Constants {
     public static final PIDConstants translationPID = new PIDConstants(2, 0, 0);
     public static final PIDConstants rotationPID = new PIDConstants(2, 0, 0);
 
-    // TODO fill out
     public static final double maxModuleSpeed = Swerve.maxSpeed; // in meters per second
     public static final double driveBaseRadius = Math.hypot(Swerve.trackWidth, Swerve.wheelBase); // in meters
   }

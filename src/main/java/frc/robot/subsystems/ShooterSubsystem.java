@@ -15,7 +15,7 @@ import frc.robot.util.ShooterModule;
 public class ShooterSubsystem extends SubsystemBase {
 
   public static enum Target {SPEAKER, AMP, NONE}
-  private Target target;
+  public Target target;
 
   private double ampRPM = Constants.Shooter.Motor.ampSpeed;
   private double speakerRPM = Constants.Shooter.Motor.speakerSpeed;
@@ -61,6 +61,18 @@ public class ShooterSubsystem extends SubsystemBase {
     );
   }
 
+  public Command prepSpeakerCommandOnce() {
+    return Commands.sequence(
+      new InstantCommand(() -> target = Target.SPEAKER),
+      runOnce(() -> {
+        speakerRPM = SmartDashboard.getNumber("Speaker Note RPM", speakerRPM);
+        rightMod = SmartDashboard.getNumber("Right Flywheel Multiplier", rightMod);
+        motorLeft.setRPM(speakerRPM);
+        motorRight.setRPM(speakerRPM * -rightMod);
+      })
+    );
+  }
+
   public Command prepAmpCommand(AmpBarSubsystem ampBar) {
     return Commands.parallel(
       new InstantCommand(() -> target = Target.AMP),
@@ -70,18 +82,6 @@ public class ShooterSubsystem extends SubsystemBase {
         rightMod = SmartDashboard.getNumber("Right Flywheel Multiplier", rightMod);
         motorLeft.setRPM(ampRPM);
         motorRight.setRPM(ampRPM * -rightMod);
-      })
-    );
-  }
-
-  public Command prepSpeakerCommandOnce() {
-    return Commands.sequence(
-      new InstantCommand(() -> target = Target.SPEAKER),
-      runOnce(() -> {
-        speakerRPM = SmartDashboard.getNumber("Speaker Note RPM", speakerRPM);
-        rightMod = SmartDashboard.getNumber("Right Flywheel Multiplier", rightMod);
-        motorLeft.setRPM(speakerRPM);
-        motorRight.setRPM(speakerRPM * -rightMod);
       })
     );
   }
@@ -98,27 +98,6 @@ public class ShooterSubsystem extends SubsystemBase {
       this.runOnce(this::stop),
       Commands.either(ampBar.homeCommand(), Commands.none(), () -> target == Target.AMP),
       new InstantCommand(() -> target = Target.NONE)
-    );
-  }
-
-  public Command autoFireCommand(IntakeSubsystem intake, AmpBarSubsystem ampBar) {
-    return Commands.sequence(
-      Commands.defer(() -> Commands.waitUntil(new Trigger(this::atTarget).debounce(0.2)), Set.of()),
-      Commands.print("fire command at target"),
-      intake.run(() -> intake.set(0.2)).withTimeout(0.2),
-      intake.runOnce(intake::stop),
-      this.runOnce(this::stop),
-      Commands.either(ampBar.homeCommand(), Commands.none(), () -> target == Target.AMP),
-      new InstantCommand(() -> target = Target.NONE)
-    );
-
-  }
-
-  public Command fireContinuous(IntakeSubsystem intake) {
-    return Commands.sequence(
-      Commands.waitUntil(new Trigger(this::atTarget).debounce(0.5)),
-      intake.run(() -> intake.set(0.2)).withTimeout(2),
-      intake.runOnce(intake::stop)
     );
   }
 
