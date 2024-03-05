@@ -87,16 +87,32 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public Command fireCommand(IntakeSubsystem intake, AmpBarSubsystem ampBar) {
+    return Commands.either(fireAmpCommand(intake, ampBar), fireSpeakerCommand(intake), () -> target == Target.AMP);
+  }
+
+  private Command fireSpeakerCommand(IntakeSubsystem intake) {
+    return Commands.sequence(
+      Commands.defer(() -> Commands.waitUntil(new Trigger(this::atTarget).debounce(0.5)), Set.of()),
+      intake.run(() -> intake.set(0.2)).withTimeout(1),
+      intake.runOnce(intake::stop),
+      this.runOnce(this::stop),
+      new InstantCommand(() -> target = Target.NONE)
+    );
+  }
+
+  private Command fireAmpCommand(IntakeSubsystem intake, AmpBarSubsystem ampBar) {
     return Commands.sequence(
       Commands.defer(() -> Commands.waitUntil(new Trigger(this::atTarget).debounce(0.5)
                     .and(new Trigger(() -> (target != Target.AMP) || 
                         MathUtil.isNear(Constants.AmpBar.upPosition, ampBar.getPosition(), Constants.AmpBar.tolerance))
                               .debounce(0.5))), Set.of()),
-      Commands.print("fire command at target"),
-      intake.run(() -> intake.set(0.2)).withTimeout(1),
+      Commands.parallel(
+        intake.run(() -> intake.set(0.2)).withTimeout(1),
+        ampBar.toCustomCommand(0.0600)
+      ).withTimeout(1),
       intake.runOnce(intake::stop),
       this.runOnce(this::stop),
-      Commands.either(ampBar.homeCommand(), Commands.none(), () -> target == Target.AMP),
+      ampBar.homeCommand(),
       new InstantCommand(() -> target = Target.NONE)
     );
   }

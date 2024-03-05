@@ -63,6 +63,25 @@ public class AmpBarSubsystem extends SubsystemBase {
         ampBarMotor.set(speed);
     }
 
+    public void setPosition(double value) {
+        ampBarPID.setReference(value, CANSparkMax.ControlType.kPosition);
+    }
+
+    public Command toCustomCommand(double target) {
+        return Commands.sequence(
+            new InstantCommand(() -> {
+                start = getState();
+                goal = new TrapezoidProfile.State(target, 0);
+                t = 0;
+                profile.calculate(t, start, goal);
+            }),
+            run(() -> {
+                ampBarPID.setReference(profile.calculate(t, start, goal).position, CANSparkMax.ControlType.kPosition);
+                t += 0.02;
+            }).until(() -> profile.isFinished(t - 5))
+        );
+    }
+
     public Command homeCommand() {
         return Commands.sequence(
             new InstantCommand(() -> {

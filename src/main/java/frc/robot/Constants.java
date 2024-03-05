@@ -186,7 +186,7 @@ public final class Constants {
     public static final float forwardSoftLimit = 0.400f;
     public static final float reverseSoftLimit = 0.0428f;
     //public static final double upPosition = 0.077;
-    public static final double upPosition = 0.0682;
+    public static final double upPosition = 0.0741;
     public static final double homePosition = 0.395;
     public static final double tolerance = 0.10;
 
