@@ -61,6 +61,25 @@ public class IntakeSubsystem extends SubsystemBase {
         );
     } 
 
+    public Command smartIntakeCommand25() {
+        return Commands.sequence(
+            this.run(() -> intakeMotor.set(1)).until(new Trigger(() -> hasNote())),
+            new ScheduleCommand(
+                Commands.race(
+                    Commands.sequence(
+                        Commands.defer(() -> this.run(() -> intakeMotor.set(-0.15)).until(new Trigger(() -> hasNote()).debounce(0.08)), Set.of(this)),
+                        Commands.defer(() -> this.run(() -> intakeMotor.set(-0.2)).until(new Trigger(() -> !hasNote()).debounce(0.04)), Set.of(this)),
+                        Commands.defer(() -> this.run(() -> intakeMotor.set(0.1)).until(new Trigger(() -> hasNote()).debounce(0.04)), Set.of(this))
+                    ),
+                    Commands.sequence(
+                        Commands.waitSeconds(0.5),
+                        new ScheduleCommand(smartIntakeCommand25())
+                    )
+                )
+            )
+        );
+    } 
+
     public Command smartIntakeCommand3() {
         return Commands.sequence(
             this.run(() -> intakeMotor.set(Constants.Intake.speed)).until(new Trigger(() -> hasNote()).debounce(0.02)),
