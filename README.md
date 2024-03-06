@@ -69,5 +69,7 @@ Down     \__________/               \__________/
 | Y  | Amp Bar Up |
 | A  | Manual Intake |
 | B  | Manual Outake |
-| DU | Manual Amp Bar Up |
-| DD | Manual Amp Bar Down|
+| DL | Manual Amp Bar Up |
+| DR | Manual Amp Bar Down|
+| DU | Climber Up |
+| DD | climber Down|

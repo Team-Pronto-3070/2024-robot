@@ -89,13 +89,13 @@ public class OI {
 
     smartIntakeButton = driver.leftBumper();
 
-    climberUpButton = driver.y();
-    climberDownButton = driver.povDown();
+    climberUpButton = driver.y().or(operator.povUp());
+    climberDownButton = driver.povDown().or(operator.povDown());
 
     ampHomeButton = operator.x();
     ampUpButton = operator.y();
-    ampManualUpButton = operator.povUp();
-    ampManualDownButton = operator.povDown();
+    ampManualUpButton = operator.povLeft();
+    ampManualDownButton = operator.povRight();
     manualIntakeButton = operator.a();
     manualOuttakeButton = operator.b();
     climberManualOverrideButton = operator.leftBumper();

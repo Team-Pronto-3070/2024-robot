@@ -108,7 +108,10 @@ public class ShooterSubsystem extends SubsystemBase {
                               .debounce(0.5))), Set.of()),
       Commands.parallel(
         intake.run(() -> intake.set(0.2)).withTimeout(1),
-        ampBar.toCustomCommand(0.0600)
+        Commands.sequence(
+          Commands.waitSeconds(0.1),
+          ampBar.toCustomCommand(0.0500)
+        )
       ).withTimeout(1),
       intake.runOnce(intake::stop),
       this.runOnce(this::stop),

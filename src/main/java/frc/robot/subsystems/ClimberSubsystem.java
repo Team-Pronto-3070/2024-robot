@@ -74,15 +74,15 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public Command upCommand() {
-    return run(() -> setBothSpeed(0.6));
+    return run(() -> setBothSpeed(1));
   }
 
   public Command downCommand() {
-    return run(() -> setBothSpeed(-0.4))
+    return run(() -> setBothSpeed(-1))
           //.until(leftLimitSwitch::get)
           //.until(rightLimitSwitch::get)
-          .until(new Trigger(() -> leftMotor.getOutputCurrent() > 35).debounce(0.5))
-          .until(new Trigger(() -> rightMotor.getOutputCurrent() > 35).debounce(0.5));
+          .until(new Trigger(() -> leftMotor.getOutputCurrent() > 35).debounce(0.1))
+          .until(new Trigger(() -> rightMotor.getOutputCurrent() > 35).debounce(0.1));
   }
 
   /**
