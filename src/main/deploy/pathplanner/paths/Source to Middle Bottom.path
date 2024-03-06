@@ -8,28 +8,46 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.7255156843402134,
-        "y": 3.5004687082643233
+        "x": 0.7189160569055443,
+        "y": 0.154954919643211
       },
       "isLocked": false,
       "linkedName": "Source Start"
     },
     {
       "anchor": {
-        "x": 2.8453487011111624,
-        "y": 0.9469338062734439
+        "x": 8.288730670646906,
+        "y": 0.7672024515673174
       },
       "prevControl": {
-        "x": 0.7936078309665581,
-        "y": 1.0091462700575202
+        "x": 1.7304924262236625,
+        "y": 0.7672024515673174
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Source Over Line"
+      "linkedName": "Middle Bottom Note"
     }
   ],
-  "rotationTargets": [],
-  "constraintZones": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.85,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 3.5,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.5,
@@ -45,7 +63,7 @@
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": -60.485169220384755,
+    "rotation": -59.69545253245762,
     "velocity": 0
   },
   "useDefaultConstraints": true

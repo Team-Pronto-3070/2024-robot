@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.288195632758686,
-        "y": 7.43920373791472
+        "x": 8.202248573541011,
+        "y": 7.2196235170226215
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.93205508703787,
-        "y": 7.43920373791472
+        "x": 4.846108027820195,
+        "y": 7.2196235170226215
       },
       "isLocked": false,
       "linkedName": "Middle Top Note"
@@ -20,7 +20,7 @@
         "y": 6.676178623549525
       },
       "prevControl": {
-        "x": 1.8468354432535596,
+        "x": 1.8468354432535592,
         "y": 7.261344045652967
       },
       "nextControl": null,
@@ -45,7 +45,7 @@
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 32.96774062128305,
     "velocity": 0
   },
   "useDefaultConstraints": true

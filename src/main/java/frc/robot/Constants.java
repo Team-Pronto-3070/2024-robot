@@ -132,8 +132,8 @@ public final class Constants {
       public static final int currentLimit = 30;
       public static final double closedLoopRampTime = 0.5; //seconds
 
-      public static final double ampSpeed = 1200.0; // Motor speed in RPM
-      public static final double speakerSpeed = 3000.0; // Motor speed in RPM
+      public static final double ampSpeed = 1400.0; // Motor speed in RPM
+      public static final double speakerSpeed = 3070.0; // Motor speed in RPM
       public static final double rightMod = 1.0;
       public static final double RPMtolerance = 200;
 
