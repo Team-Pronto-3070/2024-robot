@@ -92,7 +92,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.65,
+      "waypointRelativePos": 0,
       "command": {
         "type": "parallel",
         "data": {
@@ -100,36 +100,13 @@
             {
               "type": "named",
               "data": {
-                "name": "startIntake"
+                "name": "defensiveIntake"
               }
             },
             {
               "type": "named",
               "data": {
                 "name": "defensiveShooter"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 3.65,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "stopIntake"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "stopShooter"
               }
             }
           ]
